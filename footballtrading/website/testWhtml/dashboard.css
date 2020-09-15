@@ -1,0 +1,61 @@
+@font-face {
+    font-family: eafifa;
+    src: url(fonts/EASPORTS15.ttf);
+}
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+.all{
+    color: white;
+    margin-top: 100px;
+    background-color: #3d195b;
+}
+
+.card{
+    position: relative;
+    background-color: gold;
+    width: 350px;
+    height: 500px;
+    font-family: eafifa;
+}
+.nation{
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    float: left;
+    width: 350px;
+    height: 350px;
+    opacity: .69;
+}
+.pstat{
+    position: absolute;
+    left: 30px;
+    font-size: 33px;
+    z-index: 5;
+}
+.pstat p{
+    left: 10px;
+}
+.pstat img{
+    width: 70px;
+    height: 70px;
+}
+.pname{
+    position: absolute;
+    top: 275px;
+    left: 120px;
+    font-size: 44px;
+    z-index: 5;
+}
+.player{
+    position: absolute;
+    bottom: 10px;
+    width: 350px;
+    height: 400px;
+    background-size: cover;
+    z-index: 1;
+}
+.top{
+    position: absolute;
+    z-index: 4;
+    background-size: cover;
+    width: 350px;
+    height: 500px;
+}

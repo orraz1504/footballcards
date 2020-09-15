@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="navstyle.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="start.js"></script>
     <title>Document</title>
 </head>
 <body>
-    <div class="nav">
-        <img src="images/ball.png" alt="">
-        <p>Football Tranding</h1>
-        <ul>
-            <li><a href="">profile</a></li>
-            <li>
-                <a href="">my cards</a>
-                <ul class="second">
-                    <li><a href="">something</a></li>
-                    <li><a href="">something2</a></li>
-                </ul>
-            </li>
-            <li><a href="">trade</a></li>
-        </ul>
-    </div>
+    <div class="navbar">
+        <a href="#home">Dashboard</a>
+        <a href="#news">Inventory</a>
+        <div class="dropdown">
+          <button class="dropbtn">Dropdown 
+            <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
+          </div>
+        </div>
+        <a href="" style="float: right;">profile</a>
+      </div>
 </body>
 </html>
