@@ -14,13 +14,14 @@ path = "C:\crmdrv\chromedriver.exe"
 options = webdriver.ChromeOptions() 
 options.add_experimental_option("excludeSwitches", ["enable-logging"])
 driver = webdriver.Chrome(options=options, executable_path=path)
-driver.get("https://www.premierleague.com/players?se=363&cl=1")
-
+driver.get("https://www.premierleague.com/players?se=363&cl=11")
+"""
 ad = driver.find_element_by_id("advertClose")
 ad.send_keys(Keys.ENTER)
+"""
 players=[]
-club="arsenal"
-lastname="Dani Ceballos"
+club="Manchester City"
+lastname="Liam Delap"
 DidntWrite= True
 mytable = driver.find_element_by_css_selector('tbody')
 while DidntWrite:
@@ -38,10 +39,10 @@ while DidntWrite:
             players.append(x)
             if(name.text == lastname):
                 for i in players:
-                    conn = pyodbc.connect(r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\User\Desktop\footballcards\footballtrading\DAL\bin\Debug\football.accdb;')
+                    conn = pyodbc.connect(r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\User\Desktop\footballcards\footballtrading\website\App_Data\football.accdb;')
                     cursor = conn.cursor()
                     try:
-                        cursor.execute(r"insert INTO card ([name], [img], [country], [club], [pos]) VALUES('"+ i.pname.replace("'","") +"','"+ i.pimg +"','"+i.pcountry+"','"+i.pclub+"','"+i.ppos+"')")
+                        cursor.execute(r"insert INTO card ([name], [img], [country], [club], [pos], [type]) VALUES('"+ i.pname.replace("'","") +"','"+ i.pimg +"','"+i.pcountry+"','"+i.pclub+"','"+i.ppos+"','gold')")
                         conn.commit()
                     except:
                         print(i.pname+" not in DB")

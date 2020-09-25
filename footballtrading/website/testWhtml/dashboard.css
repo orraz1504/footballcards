@@ -9,12 +9,14 @@
     background-color: #3d195b;
 }
 
-.card{
+.card {
     position: relative;
-    background-color: gold;
+    background-color: #FFFDD0;
+    display: inline-block;
     width: 350px;
-    height: 500px;
+    height: 505px;
     font-family: eafifa;
+    margin:10px;
 }
 .nation{
     background-size: 100% 100%;
@@ -39,8 +41,13 @@
 }
 .pname{
     position: absolute;
-    top: 275px;
-    left: 120px;
+    font-family: Arial, Helvetica, sans-serif;
+  width: 50%;
+  height: 50%;
+  overflow: visible;
+  margin: auto;
+  position: absolute;
+  top: 310px; left: 0; bottom: 0; right: 0;
     font-size: 44px;
     z-index: 5;
 }
@@ -50,7 +57,7 @@
     width: 350px;
     height: 400px;
     background-size: cover;
-    z-index: 1;
+    z-index: 3;
 }
 .top{
     position: absolute;
