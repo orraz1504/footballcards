@@ -17,24 +17,40 @@ namespace DAL
             foreach (DataRow row in dt.Rows)
             {
                 int itmLength = row.ItemArray.Length;
-                string[] mrow = new string[itmLength - 1];
-                for (int i = 1; i < itmLength; i++)
+                string[] mrow = new string[itmLength];
+                for (int i = 0; i < itmLength; i++)
                 {
-                    mrow[i - 1] = row.ItemArray[i].ToString();
+                    mrow[i] = row.ItemArray[i].ToString();
                 }
                 ret.Add(mrow);
             }
             return ret;
+        }
+        public static string[] getByRating(int ratinglow, int ratinghigh)
+        {
+            Random rnd = new Random();
+            List<string[]> ret = new List<string[]>();
+            string com = "SELECT * FROM [card] where [rating] >= " + ratinglow+ " and [rating] <="+ ratinghigh;
+            DataTable dt = oledbhelper.GetTable(com);
+            int j = rnd.Next(0, dt.Rows.Count);
+            DataRow dr = dt.Rows[j];
+            int itmLength = dr.ItemArray.Length;
+            string[] mrow = new string[itmLength];
+            for (int i = 0; i < itmLength; i++)
+            {
+                mrow[i] = dr.ItemArray[i].ToString();
+            }
+            return mrow;
         }
         public static string[] getByCardId(int Id)
         {
             string com = "SELECT * FROM [card] where [cardID] = " + Id;
             DataTable dt = oledbhelper.GetTable(com);
             int itmLength = dt.Rows[0].ItemArray.Length;
-            string[] mrow = new string[itmLength - 1];
-            for (int i = 1; i < itmLength; i++)
+            string[] mrow = new string[itmLength];
+            for (int i = 0; i < itmLength; i++)
             {
-                mrow[i - 1] = dt.Rows[0].ItemArray[i].ToString();
+                mrow[i] = dt.Rows[0].ItemArray[i].ToString();
             }
             return mrow;
         }

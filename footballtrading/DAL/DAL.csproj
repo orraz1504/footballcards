@@ -47,7 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CardFunctions.cs" />
+    <Compile Include="cardInv.cs" />
     <Compile Include="oldbhelper .cs" />
+    <Compile Include="PackFunctions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="userFunction.cs" />
