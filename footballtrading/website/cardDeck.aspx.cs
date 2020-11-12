@@ -127,7 +127,7 @@ public partial class cardDeck : System.Web.UI.Page
         foreach (string[] player in cards.OrderByDescending(x => x[5]).ToList())
         {
             createCard(player);
-            if (cardInv.checkDuplicate("orez", player[0]))
+            if (cardInv.checkDuplicate(Session["username"].ToString(), player[0]))
                 Debug.WriteLine("Duplicate");
             else
                 Debug.WriteLine("not Duplicate");

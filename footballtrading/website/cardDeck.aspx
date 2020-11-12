@@ -7,6 +7,8 @@
     <div class="deck">
        <%=carddeck %>
     </div>
-    <asp:Button ID="openPack" Text="basicPack" runat="server" OnClick="openPack_Click" />
+    <form Runat="Server">
+            <asp:Button ID="openPack" Text="basicPack" Runat="Server" OnClick="openPack_Click" />
+    </form>
 </asp:Content>
 
