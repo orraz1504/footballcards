@@ -22,7 +22,14 @@ namespace DAL
         }
         public Card(int id, string name, string img, string country, string club, int rating, string pos, string type)
         {
-            this.id =Card
+            this.id = id;
+            this.name = name;
+            this.img = img;
+            this.country = country;
+            this.club = club;
+            this.rating = rating;
+            this.pos = pos;
+            this.type = type;
         }
     }
 }

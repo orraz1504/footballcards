@@ -4,11 +4,10 @@
         <link rel="stylesheet" href="testWhtml/dashboard.css">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+    
+    <%=packs %>
     <div class="deck">
        <%=carddeck %>
     </div>
-    <form Runat="Server">
-            <asp:Button ID="openPack" Text="basicPack" Runat="Server" OnClick="openPack_Click" />
-    </form>
 </asp:Content>
 

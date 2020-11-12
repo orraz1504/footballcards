@@ -21,5 +21,21 @@ namespace DAL
             }
             return mrow;
         }
+        public static List<int> packsByUsername(string username)
+        {
+            List<int> ret = new List<int>();
+            string com = "SELECT * FROM [packinventory] where [username] = '" + username+"'";
+            DataTable dt = oledbhelper.GetTable(com);
+            foreach (DataRow dr in dt.Rows)
+            {
+                ret.Add(Convert.ToInt32(dr.ItemArray[2]));
+            }
+            return ret;
+        }
+        public static void deletePack(int packID)
+        {
+            string com = "DELETE * FROM [packinventory] where [ID] = " + packID;
+            oledbhelper.Execute(com);
+        }
     }
 }

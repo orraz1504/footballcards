@@ -14,40 +14,51 @@ using System.Diagnostics;
 public partial class cardDeck : System.Web.UI.Page
 {
     public string carddeck;
-    private List<string[]> cards;
+    public string packs;
+    private List<Card> cards;
     protected void Page_Load(object sender, EventArgs e)
     {
+    }
+    // function creates all the pack for logged in user
+    public void createpacksforuser()
+    {
+        List<int> packs = PackFunctions.packsByUsername(Session["username"].ToString());
+        foreach (int PackId in packs)
+        {
+            string btn = $"<asp:Button ID='openPack' Text='basicPack' Runat='Server' OnClick='openPack_Click' />";
+            carddeck += btn;
+        }
     }
     public void printAllPlayersFromClub(string club)
     {
         //creating all players from club
-        List<string[]> playerss = CardFunctions.getByClub(club);
-        foreach (string[] player in playerss)
+        List<Card> playerss = CardFunctions.getByClub(club);
+        foreach (Card player in playerss)
         {
             createCard(player);
         }
     }
-    public void createCard(string[] player)
+    public void createCard(Card player)
     {
         //create card
         string card = "<div class='card'>";
 
         //create top layer
-        card += "<div class='top' style='background-image:url(\"testWhtml/images/" + player[7] + "-top.png\");'></div>";
+        card += "<div class='top' style='background-image:url(\"testWhtml/images/" + player.type + "-top.png\");'></div>";
 
         //add nation
-        card+= "<div class='nation' style='background-image:url(\"testWhtml/flags/" + player[3] + ".png\");'></div>";
+        card+= "<div class='nation' style='background-image:url(\"testWhtml/flags/" + player.country + ".png\");'></div>";
 
         //add stat and badge
-        card += "<div class='pstat'><p>"+player[6]+ "</p><p>" + player[5] + "</p>";
-        card += "<img src='testWhtml/images/badges/" + player[4]+".png'></div>";
+        card += "<div class='pstat'><p>"+player.rating+ "</p><p>" + player.pos + "</p>";
+        card += "<img src='testWhtml/images/badges/" + player.club+".png'></div>";
 
         //add player name
-        string[] namesplit = player[1].Split(' ');
+        string[] namesplit = player.name.Split(' ');
         card += "<div class='pname'><p>" + namesplit[namesplit.Length - 1] + "</p></div>";
 
         //add player img
-        card += "<div class='player' style='background-image:url(\""+player[2]+"\");'></div>";
+        card += "<div class='player' style='background-image:url(\""+player.img+"\");'></div>";
 
         //end
         card += "</div>";
@@ -56,23 +67,23 @@ public partial class cardDeck : System.Web.UI.Page
     }
 
     // the function gets the rating and the card list and handesls the return if contains
-    private string[] cardByRating(List<string[]> cards, int ratinglow, int ratinghigh)
+    private Card cardByRating(List<Card> cards, int ratinglow, int ratinghigh)
     {
-        string[] players = CardFunctions.getByRating(ratinglow,ratinghigh);
-        while (doesContain(cards, players[0]))
+        Card player = CardFunctions.getByRating(ratinglow,ratinghigh);
+        while (doesContain(cards, player.name))
         {
-            players = CardFunctions.getByRating(ratinglow,ratinghigh);
+            player = CardFunctions.getByRating(ratinglow,ratinghigh);
         }
-        return players;
+        return player;
     }
 
     //the function gets the current list of cards and a name of the next card and returns 
     //true if duplicaate and false if not.
-    private bool doesContain(List<string[]> cards, string name)
+    private bool doesContain(List<Card> cards, string name)
     {
-        foreach (string[] player in cards)
+        foreach (Card player in cards)
         {
-            if (player.Contains(name))
+            if (player.name == name)
                 return true;
         }
         return false;
@@ -80,7 +91,18 @@ public partial class cardDeck : System.Web.UI.Page
     //function thats called when open packs is pressed
     protected void openPack_Click(object sender, EventArgs e)
     {
-        string[] odds = PackFunctions.getByPackId(1);
+        int packID;
+        try
+        {
+            packID = Convert.ToInt32(((Button)sender).Text);
+            Debug.WriteLine(packID.ToString());
+        }
+        catch
+        {
+            packID = 1;
+            Debug.WriteLine("Failed to find PACKID");
+        }
+        string[] odds = PackFunctions.getByPackId(packID);
         int under80 = 100 - Convert.ToInt32(odds[1]);
         int under85 = 100 - Convert.ToInt32(odds[2]);
         int under90 = 100 - Convert.ToInt32(odds[3]);
@@ -94,28 +116,28 @@ public partial class cardDeck : System.Web.UI.Page
         Debug.WriteLine(special);
 
         Random rnd = new Random();
-        cards = new List<string[]>();
+        cards = new List<Card>();
         for (int i = 0; i < 5; i++)
         {
             int num = rnd.Next(100);
             if (num <= under80)
             {
-                string[] card = cardByRating(cards, 0 , 80);
+                Card card = cardByRating(cards, 0 , 80);
                 cards.Add(card);
             }
             else if (num > under80 && num <= under85)
             {
-                string[] card = cardByRating(cards, 80 , 85);
+                Card card = cardByRating(cards, 80 , 85);
                 cards.Add(card);
             }
             else if (num > under85 && num <= under90)
             {
-                string[] card = cardByRating(cards, 85 , 90);
+                Card card = cardByRating(cards, 85 , 90);
                 cards.Add(card);
             }
             else if (num > under90 && num <= under99)
             {
-                string[] card = cardByRating(cards, 90, 99);
+                Card card = cardByRating(cards, 90, 99);
                 cards.Add(card);
             }
             else
@@ -124,14 +146,14 @@ public partial class cardDeck : System.Web.UI.Page
             }
             Debug.WriteLine("num- " + num);
         }
-        foreach (string[] player in cards.OrderByDescending(x => x[5]).ToList())
+        foreach (Card player in cards.OrderByDescending(x => x.rating).ToList())
         {
             createCard(player);
-            if (cardInv.checkDuplicate(Session["username"].ToString(), player[0]))
+            if (cardInv.checkDuplicate(Session["username"].ToString(), player.id.ToString()))
                 Debug.WriteLine("Duplicate");
             else
                 Debug.WriteLine("not Duplicate");
-            Debug.WriteLine(player[0]);
+            Debug.WriteLine(player.id);
         }
     }
 }
