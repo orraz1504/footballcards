@@ -14,19 +14,22 @@ using System.Diagnostics;
 public partial class cardDeck : System.Web.UI.Page
 {
     public string carddeck;
-    public string packs;
     private List<Card> cards;
     protected void Page_Load(object sender, EventArgs e)
     {
+        createpacksforuser();
     }
     // function creates all the pack for logged in user
     public void createpacksforuser()
     {
-        List<int> packs = PackFunctions.packsByUsername(Session["username"].ToString());
-        foreach (int PackId in packs)
+        List<int> packsFU = PackFunctions.packsByUsername(Session["username"].ToString());
+        foreach (int PackId in packsFU)
         {
-            string btn = $"<asp:Button ID='openPack' Text='basicPack' Runat='Server' OnClick='openPack_Click' />";
-            carddeck += btn;
+            Button b = new Button();
+            b.Text = PackId.ToString();
+            b.Click += new EventHandler(openPack_Click);
+            b.CssClass = "btn btn-primary";
+            PackPlaceHolder.Controls.Add(b);
         }
     }
     public void printAllPlayersFromClub(string club)
@@ -99,61 +102,72 @@ public partial class cardDeck : System.Web.UI.Page
         }
         catch
         {
-            packID = 1;
+            packID = -1;
             Debug.WriteLine("Failed to find PACKID");
         }
-        string[] odds = PackFunctions.getByPackId(packID);
-        int under80 = 100 - Convert.ToInt32(odds[1]);
-        int under85 = 100 - Convert.ToInt32(odds[2]);
-        int under90 = 100 - Convert.ToInt32(odds[3]);
-        int under99 = 100 - Convert.ToInt32(odds[5]);
-        int special = 100 - Convert.ToInt32(odds[4]);
-
-        Debug.WriteLine(under80);
-        Debug.WriteLine(under85);
-        Debug.WriteLine(under90);
-        Debug.WriteLine(under99);
-        Debug.WriteLine(special);
-
-        Random rnd = new Random();
-        cards = new List<Card>();
-        for (int i = 0; i < 5; i++)
+        if (packID != -1)
         {
-            int num = rnd.Next(100);
-            if (num <= under80)
+            int total = 0;
+            string[] odds = PackFunctions.getByPackId(packID);
+            int under80 = total + Convert.ToInt32(odds[1]);
+            total += Convert.ToInt32(odds[1]);
+            int under85 = total + Convert.ToInt32(odds[2]);
+            total += Convert.ToInt32(odds[2]);
+            int under90 = total + Convert.ToInt32(odds[3]);
+            total += Convert.ToInt32(odds[3]);
+            int under99 = total + Convert.ToInt32(odds[5]);
+            total += Convert.ToInt32(odds[4]);
+            int special = total + Convert.ToInt32(odds[4]);
+            total += Convert.ToInt32(odds[5]);
+
+            Debug.WriteLine(under80);
+            Debug.WriteLine(under85);
+            Debug.WriteLine(under90);
+            Debug.WriteLine(under99);
+            Debug.WriteLine(special);
+
+            Random rnd = new Random();
+            cards = new List<Card>();
+            for (int i = 0; i < 5; i++)
             {
-                Card card = cardByRating(cards, 0 , 80);
-                cards.Add(card);
+                int num = rnd.Next(100);
+                if (num <= under80)
+                {
+                    Card card = cardByRating(cards, 0, 80);
+                    cards.Add(card);
+                }
+                else if (num > under80 && num <= under85)
+                {
+                    Card card = cardByRating(cards, 80, 85);
+                    cards.Add(card);
+                }
+                else if (num > under85 && num <= under90)
+                {
+                    Card card = cardByRating(cards, 85, 90);
+                    cards.Add(card);
+                }
+                else if (num > under90 && num <= under99)
+                {
+                    Card card = cardByRating(cards, 90, 99);
+                    cards.Add(card);
+                }
+                else
+                {
+
+                }
+                Debug.WriteLine("num- " + num);
             }
-            else if (num > under80 && num <= under85)
+            foreach (Card player in cards.OrderByDescending(x => x.rating).ToList())
             {
-                Card card = cardByRating(cards, 80 , 85);
-                cards.Add(card);
+                createCard(player);
+                if (cardInv.checkDuplicate(Session["username"].ToString(), player.id.ToString()))
+                    Debug.WriteLine("Duplicate");
+                else
+                    Debug.WriteLine("not Duplicate");
+                Debug.WriteLine(player.id);
             }
-            else if (num > under85 && num <= under90)
-            {
-                Card card = cardByRating(cards, 85 , 90);
-                cards.Add(card);
-            }
-            else if (num > under90 && num <= under99)
-            {
-                Card card = cardByRating(cards, 90, 99);
-                cards.Add(card);
-            }
-            else
-            {
-                
-            }
-            Debug.WriteLine("num- " + num);
-        }
-        foreach (Card player in cards.OrderByDescending(x => x.rating).ToList())
-        {
-            createCard(player);
-            if (cardInv.checkDuplicate(Session["username"].ToString(), player.id.ToString()))
-                Debug.WriteLine("Duplicate");
-            else
-                Debug.WriteLine("not Duplicate");
-            Debug.WriteLine(player.id);
+            PackFunctions.deletePack(Session["username"].ToString(), packID);
+            PackPlaceHolder.Controls.Remove((Button)sender);
         }
     }
 }

@@ -32,10 +32,11 @@ namespace DAL
             }
             return ret;
         }
-        public static void deletePack(int packID)
+        public static void deletePack(string username, int packID)
         {
-            string com = "DELETE * FROM [packinventory] where [ID] = " + packID;
-            oledbhelper.Execute(com);
+            string com = "SELECT * FROM [packinventory] where [username]='" + username + "' AND [PackID] = '" + packID + "'";
+            string com2 = "DELETE * FROM [packinventory] where [ID] =" + Convert.ToInt32(oledbhelper.GetTable(com).Rows[0].ItemArray[0]);
+            oledbhelper.Execute(com2);
         }
     }
 }
