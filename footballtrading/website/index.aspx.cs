@@ -12,4 +12,10 @@ public partial class index : System.Web.UI.Page
     {
         username = Session["username"].ToString();
     }
+
+    protected void logOut_Click(object sender, EventArgs e)
+    {
+        Session["username"] = null;
+        Response.Redirect("~/Login.aspx");
+    }
 }

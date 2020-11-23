@@ -5,21 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.OleDb;
+using System.Security.Cryptography;
+
 namespace DAL
 {
     public static class userFunction
     {
         public static void AddUser(string username, string password)
         {
-           string com = "insert into [users] ([username],[password]) VALUES ('"+username+"' ,'"+password+"')";
+           string com = "insert into [users] ([username],[password]) VALUES ('"+username+"' ,'"+ AesCryp.encrypt(password)+"')";
            oledbhelper.Execute(com);
         }
-        public static string checkPassword(string username)
+        public static bool checkPassword(string username, string password)
         {
             string com = "SELECT [password] FROM [users] where [username] = '"+username+"'";
             DataTable dt = oledbhelper.GetTable(com);
-            string ret = dt.Rows[0].ItemArray[0].ToString();
-            return ret;
+            string pass =dt.Rows[0].ItemArray[0].ToString();
+            if (AesCryp.Decrypt(pass) == password)
+                return true;
+            return false;
         }
         public static bool isUsername(string username)
         {

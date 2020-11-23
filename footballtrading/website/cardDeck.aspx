@@ -16,6 +16,7 @@
         <div class="form-group" id="popup">
             <label runat="server" id="frns" for="nationS">what nation?</label>
             <asp:TextBox runat="server" type="text" class="form-control" id="nationS" placeholder="England"></asp:TextBox>
+            <asp:Button ID="nationSub" runat="server" Text="Button" OnClick="nationSub_Click" />
         </div>
 
     </form>

@@ -15,6 +15,7 @@ public partial class cardDeck : System.Web.UI.Page
         showDeck();
         frns.Visible = false;
         nationS.Visible = false;
+        nationSub.Visible = false;
     }
     
     //creates deck of all cards
@@ -33,7 +34,24 @@ public partial class cardDeck : System.Web.UI.Page
         {
             frns.Visible = true;
             nationS.Visible = true;
+            nationSub.Visible = true;
         }
-        carddeck += "<p> dsds</p>";
+        else if (sortselec.SelectedValue == "club")
+        {
+            frns.Visible = true;
+            nationS.Visible = true;
+            nationSub.Visible = true;
+        }
+    }
+
+    protected void nationSub_Click(object sender, EventArgs e)
+    {
+        carddeck = "";
+        foreach (Card c in CardFunctions.getByNation(nationS.Text))
+        {
+            carddeck += gf.createCard(c);
+        }
+        nationS.Text = "";
+
     }
 }
