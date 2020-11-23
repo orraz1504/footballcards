@@ -33,17 +33,14 @@ namespace DAL
             Card c = new Card(Convert.ToInt32(dr.ItemArray[0].ToString()), dr.ItemArray[1].ToString(), dr.ItemArray[2].ToString(), dr.ItemArray[3].ToString(), dr.ItemArray[4].ToString(), Convert.ToInt32(dr.ItemArray[5].ToString()), dr.ItemArray[6].ToString(), dr.ItemArray[7].ToString());
             return c;
         }
-        public static string[] getByCardId(int Id)
+        public static Card getByCardId(int Id)
         {
             string com = "SELECT * FROM [card] where [cardID] = " + Id;
             DataTable dt = oledbhelper.GetTable(com);
-            int itmLength = dt.Rows[0].ItemArray.Length;
-            string[] mrow = new string[itmLength];
-            for (int i = 0; i < itmLength; i++)
-            {
-                mrow[i] = dt.Rows[0].ItemArray[i].ToString();
-            }
-            return mrow;
+            DataRow dr = dt.Rows[0];
+            int itemNum = dr.ItemArray.Length;
+            Card c = new Card(Convert.ToInt32(dr.ItemArray[0].ToString()), dr.ItemArray[1].ToString(), dr.ItemArray[2].ToString(), dr.ItemArray[3].ToString(), dr.ItemArray[4].ToString(), Convert.ToInt32(dr.ItemArray[5].ToString()), dr.ItemArray[6].ToString(), dr.ItemArray[7].ToString());
+            return c;
         }
     }
 }

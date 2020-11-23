@@ -4,6 +4,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <%=username %>
-    <a href="cardDeck.aspx"> openpacks</a>
+    <a href="Packs.aspx"> openpacks</a>
+    <a href="cardDeck.aspx"> card deck</a>
 </asp:Content>
 

@@ -26,11 +26,11 @@ namespace DAL
         {
             string com = "SELECT [cardID] FROM [cardinventory] where [username] = '" + username + "'";
             DataTable dt = oledbhelper.GetTable(com);
-            int itmLength = dt.Rows[0].ItemArray.Length;
-            string[] mrow = new string[itmLength - 1];
-            for (int i = 1; i < itmLength; i++)
+            int itmLength = dt.Rows.Count;
+            string[] mrow = new string[itmLength];
+            for (int i = 0; i < itmLength; i++)
             {
-                mrow[i - 1] = dt.Rows[0].ItemArray[i].ToString();
+                mrow[i] = dt.Rows[i].ItemArray[0].ToString();
             }
             return mrow;
         }
