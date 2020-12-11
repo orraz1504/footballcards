@@ -1,0 +1,13 @@
+C:\Users\User\Desktop\footballcards\footballtrading\DALTest\obj\Debug\DALTest.csprojAssemblyReference.cache
+C:\Users\User\Desktop\footballcards\footballtrading\DALTest\obj\Debug\DALTest.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\footballcards\footballtrading\DALTest\bin\Debug\DALTest.exe.config
+C:\Users\User\Desktop\footballcards\footballtrading\DALTest\bin\Debug\DALTest.exe
+C:\Users\User\Desktop\footballcards\footballtrading\DALTest\bin\Debug\DALTest.pdb
+C:\Users\User\Desktop\footballcards\footballtrading\DALTest\bin\Debug\DAL.dll
+C:\Users\User\Desktop\footballcards\footballtrading\DALTest\bin\Debug\Newtonsoft.Json.dll
+C:\Users\User\Desktop\footballcards\footballtrading\DALTest\bin\Debug\DAL.pdb
+C:\Users\User\Desktop\footballcards\footballtrading\DALTest\bin\Debug\DAL.dll.config
+C:\Users\User\Desktop\footballcards\footballtrading\DALTest\bin\Debug\Newtonsoft.Json.xml
+C:\Users\User\Desktop\footballcards\footballtrading\DALTest\obj\Debug\DALTest.csproj.CopyComplete
+C:\Users\User\Desktop\footballcards\footballtrading\DALTest\obj\Debug\DALTest.exe
+C:\Users\User\Desktop\footballcards\footballtrading\DALTest\obj\Debug\DALTest.pdb

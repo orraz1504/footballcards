@@ -1,41 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using DAL;
 using DAL.apiClases;
 
-namespace DALtest
+namespace DALTest
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Root a = APICall.GetCall();
-            foreach (Match match in a.matches)
+            List<Root> a = APICall.GetCall();
+            string p = "";
+            foreach (Root match in a)
             {
-                string w = $"match: {match.homeTeam.name} vs {match.awayTeam.name} \n {match.utcDate.Date} status: {match.status}";
-                if (match.status == "FINISHED")
+                p = FPLFunctions.getByClubID(match.team_h) + $"({match.team_h_score} - {match.team_a_score}) " + FPLFunctions.getByClubID(match.team_a)+ "\n";
+                try
                 {
-                    w += $"({match.score.fullTime.homeTeam}-{match.score.fullTime.awayTeam})\n";
-                    try
+                    foreach (var goals in match.stats[0].a)
                     {
-                        foreach (Goal goal in match.goals)
-                        {
-                            w += $"{goal.scorer} - {goal.minute}min\n";
-                        }
+                        p += $"player {FPLFunctions.getByCardID(goals.element)} scored {goals.value} goals\n";
                     }
-                    catch
+                    foreach (var goals in match.stats[0].h)
                     {
-                        w += "no goals";
+                        p += $"player {FPLFunctions.getByCardID(goals.element)} scored {goals.value} goals\n";
                     }
                 }
-                Console.WriteLine(w);
-            }
+                catch
+                {
+                    p += $"error with player";
+                }
 
+                Console.WriteLine(p);
+            }
         }
     }
 }

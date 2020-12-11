@@ -140,10 +140,10 @@ public partial class cardDeck : System.Web.UI.Page
             {
                 carddeck += gf.createCard(player);
 
-                if (cardInv.checkDuplicate(Session["username"].ToString(), player.id.ToString()))
-                    Debug.WriteLine("Duplicate");
-                else
-                    Debug.WriteLine("not Duplicate");
+                if (!cardInv.checkDuplicate(Session["username"].ToString(), player.id.ToString()))
+                {
+                    //cardInv.Addplayer(Session["username"].ToString(), player.id.ToString());
+                }
                 Debug.WriteLine(player.id);
             }
             //add later- pack delete

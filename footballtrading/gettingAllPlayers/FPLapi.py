@@ -16,13 +16,21 @@ cursor.execute('select * from card')
 count=0
 
 for row in cursor.fetchall():
-    a.append(row[1])
+    if row[7] in a:
+        print(str(row[7])+" is dupe\n")
+    else:
+        a.append(row[7])
 
 
+
+"""
 for player in data['elements']:
-    pname = player['first_name'] + " "+ player['second_name'] 
-    if pname not in a:
-        count+=1
-        print(pname)
-
+    pname = player['web_name']
+    for i in range(len(a)):
+        if a[i] in pname:
+                cursor.execute(r"UPDATE card SET [TestId] = "+ str(player['id'])+" WHERE [name] = '"+a[i]+"'")
+                conn.commit()
+                count+=1
+                print(a[i]+"added")
+"""
 print(count)
