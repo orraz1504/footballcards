@@ -146,8 +146,11 @@ public partial class cardDeck : System.Web.UI.Page
                     Debug.WriteLine("not Duplicate");
                 Debug.WriteLine(player.id);
             }
+            //add later- pack delete
+            /*
             PackFunctions.deletePack(Session["username"].ToString(), packID);
             PackPlaceHolder.Controls.Remove((Button)sender);
+            */
             PackPlaceHolder.Visible = false;
             saveB.Visible = true;
         }

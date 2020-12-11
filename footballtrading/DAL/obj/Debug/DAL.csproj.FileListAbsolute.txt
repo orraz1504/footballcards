@@ -5,3 +5,6 @@ C:\Users\User\Desktop\footballcards\footballtrading\DAL\obj\Debug\DAL.csprojAsse
 C:\Users\User\Desktop\footballcards\footballtrading\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cache
 C:\Users\User\Desktop\footballcards\footballtrading\DAL\obj\Debug\DAL.dll
 C:\Users\User\Desktop\footballcards\footballtrading\DAL\obj\Debug\DAL.pdb
+C:\Users\User\Desktop\footballcards\footballtrading\DAL\bin\Debug\Newtonsoft.Json.dll
+C:\Users\User\Desktop\footballcards\footballtrading\DAL\bin\Debug\Newtonsoft.Json.xml
+C:\Users\User\Desktop\footballcards\footballtrading\DAL\obj\Debug\DAL.csproj.CopyComplete

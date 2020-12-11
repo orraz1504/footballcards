@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "dMiswi5psTGg7at0TY/nKw9k0j91dyycTvq4czuzKv8lUaVaOl8i95idQ9IR66aTh0Z1Ud1ziWjdW5h/LpCL6A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\User\\Desktop\\footballcards\\footballtrading\\DALtest\\DALtest.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\User\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
