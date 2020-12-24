@@ -6,6 +6,7 @@
     <%=username %>
     <a href="Packs.aspx"> openpacks</a>
     <a href="cardDeck.aspx"> card deck</a>
+    <a href="Betting.aspx"> Betting</a>
     <form runat="server">
         <asp:Button ID="logOut" runat="server" Text="Log out" OnClick="logOut_Click"/>
     </form>

@@ -49,23 +49,20 @@ public static class oledbhelper
     public static DataTable GetTable(string com)
     {
         //Connection  יצירת אובייקט מסוג 
-        //OleDbConnection cn = new OleDbConnection(ConnectionString);
-        //cn.Open();
-         
-        if (cn.State != ConnectionState.Open)
-        {
-            cn.Open();
-        }
+        OleDbConnection cn = new OleDbConnection(ConnectionString);
         // command יצירת אובייקט מסוג 
         OleDbCommand command = new OleDbCommand();
         command.Connection = cn;
         command.CommandText = com;
-        //יצירת אובייקט מסוג דטהסט - אוסף טבלאות בזיכרון המחשב
 
+        //יצירת אובייקט מסוג דטהסט - אוסף טבלאות בזיכרון 
         DataTable dt = new DataTable();
         dt.TableName = "tbl";
+
         //יצירת אובייקט אדפטר מטרתו לתאם בין הדטהסט לדטהבייס
         OleDbDataAdapter adapter = new OleDbDataAdapter(command);
+
+        cn.Open();
 
         try
         {
@@ -73,13 +70,15 @@ public static class oledbhelper
 
             adapter.Fill(dt);
         }
-        catch
+        catch (Exception e)
         {
             throw;
         }
         finally
         {
+            cn.Close();
         }
+
         return dt;
     }
 }
