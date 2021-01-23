@@ -19,6 +19,7 @@ public partial class Login : System.Web.UI.Page
         {
             string username = Request.Form["username"];
             string password = Request.Form["pass"];
+
             if (userFunction.isUsername(username) && userFunction.checkPassword(username, password))
             {
                 Session["username"] = username;

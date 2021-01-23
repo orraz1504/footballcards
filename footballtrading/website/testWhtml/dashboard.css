@@ -3,15 +3,10 @@
     src: url(fonts/EASPORTS15.ttf);
 }
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
-.all{
-    color: white;
-    margin-top: 100px;
-    background-color: #3d195b;
-}
 
 .card {
     position: relative;
-    background-color: #FFFDD0;
+    background-color: #6CABDD;
     display: inline-block;
     width: 350px;
     height: 505px;
@@ -19,12 +14,16 @@
     margin:10px;
 }
 .nation{
+    z-index:1;
+    display:flex;
+    justify-content: center; 
+    align-items: center;
     background-size: 100% 100%;
     background-repeat: no-repeat;
     float: left;
-    width: 350px;
-    height: 350px;
-    opacity: .69;
+    width: 250px;
+    height: 250px;
+    opacity: .35;
 }
 .pstat{
     position: absolute;

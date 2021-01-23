@@ -16,10 +16,12 @@ public partial class cardDeck : System.Web.UI.Page
 {
     public string carddeck;
     private List<Card> cards;
+    private Dictionary<string, clubColour> clbclr;
     protected void Page_Load(object sender, EventArgs e)
     {
         createpacksforuser();
         saveB.Visible = false;
+        clbclr = CardFunctions.getcolours();
     }
     // function creates all the pack for logged in user
     public void createpacksforuser()
@@ -42,7 +44,7 @@ public partial class cardDeck : System.Web.UI.Page
         List<Card> playerss = CardFunctions.getByClub(club);
         foreach (Card player in playerss)
         {
-            carddeck += gf.createCard(player);
+            carddeck += gf.createCard(player,clbclr[player.club]);
         }
     }
 
@@ -138,19 +140,16 @@ public partial class cardDeck : System.Web.UI.Page
             }
             foreach (Card player in cards.OrderByDescending(x => x.rating).ToList())
             {
-                carddeck += gf.createCard(player);
+                carddeck += gf.createCard(player, clbclr[player.club]);
 
                 if (!cardInv.checkDuplicate(Session["username"].ToString(), player.id.ToString()))
                 {
-                    //cardInv.Addplayer(Session["username"].ToString(), player.id.ToString());
+                    cardInv.Addplayer(Session["username"].ToString(), player.id.ToString());
                 }
                 Debug.WriteLine(player.id);
             }
-            //add later- pack delete
-            /*
             PackFunctions.deletePack(Session["username"].ToString(), packID);
             PackPlaceHolder.Controls.Remove((Button)sender);
-            */
             PackPlaceHolder.Visible = false;
             saveB.Visible = true;
         }

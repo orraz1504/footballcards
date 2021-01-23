@@ -24,7 +24,7 @@ namespace DAL
             var call = JsonConvert.DeserializeObject<List<Root>>(football_Jason);
             return call;
         }
-        public static int getCurrentGameweek()
+        public static int getCurrentGameweek(int offset)
         {
             ServicePointManager.Expect100Continue = true;
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
@@ -40,7 +40,7 @@ namespace DAL
                 {
                     if (eve.id is int)
                     {
-                        return eve.id ?? 1;
+                        return eve.id + offset?? 1;
                     }
                    
                 }

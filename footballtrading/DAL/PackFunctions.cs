@@ -21,6 +21,11 @@ namespace DAL
             }
             return mrow;
         }
+        public static void addPack(string username, string packID)
+        {
+            string com = "insert into [packinventory] ([username],[PackID]) VALUES ('" + username + "' ,'" + packID + "')";
+            oledbhelper.Execute(com);
+        }
         public static List<int> packsByUsername(string username)
         {
             List<int> ret = new List<int>();
@@ -35,7 +40,7 @@ namespace DAL
         public static void deletePack(string username, int packID)
         {
             string com = "SELECT * FROM [packinventory] where [username]='" + username + "' AND [PackID] = '" + packID + "'";
-            string com2 = "DELETE * FROM [packinventory] where [ID] =" + Convert.ToInt32(oledbhelper.GetTable(com).Rows[0].ItemArray[0]);
+            string com2 = "DELETE * FROM [packinventory] where [ID] =" +Convert.ToInt32(oledbhelper.GetTable(com).Rows[0].ItemArray[0]);
             oledbhelper.Execute(com2);
         }
     }

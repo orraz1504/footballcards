@@ -22,17 +22,19 @@ namespace DAL
                 return false;
             return true;
         }
-        public static string[] getAllcardId(string username)
+        public static string getAllcardId(string username)
         {
             string com = "SELECT [cardID] FROM [cardinventory] where [username] = '" + username + "'";
             DataTable dt = oledbhelper.GetTable(com);
             int itmLength = dt.Rows.Count;
-            string[] mrow = new string[itmLength];
+            string mrow = "(";
             for (int i = 0; i < itmLength; i++)
             {
-                mrow[i] = dt.Rows[i].ItemArray[0].ToString();
+                mrow += dt.Rows[i].ItemArray[0].ToString();
+                if (i != itmLength - 1)
+                    mrow += ",";
             }
-            return mrow;
+            return mrow +")";
         }
     }
 }

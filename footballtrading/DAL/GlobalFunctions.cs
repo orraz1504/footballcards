@@ -11,27 +11,31 @@ namespace DAL
 {
     public static class GlobalFunctions
     {
-        public static string createCard(Card player)
+        public static string createCard(Card player, clubColour clr)
         {
             //create card
-            string card = "<div class='card'>";
+            string card = "<div class='card' style='background-color:" + clr.mcolour + "'>";
 
-            //create top layer
-            card += "<div class='top' style='background-image:url(\"testWhtml/images/" + player.type + "-top.png\");'></div>";
+            //create Rating text
+            card += "<div class='rating'><p>" + player.rating + "</p></div>";
 
-            //add nation
-            card += "<div class='nation' style='background-image:url(\"testWhtml/flags/" + player.country + ".png\");'></div>";
-
-            //add stat and badge
-            card += "<div class='pstat'><p>" + player.rating + "</p><p>" + player.pos + "</p>";
-            card += "<img src='testWhtml/images/badges/" + player.club + ".png'></div>";
-
-            //add player name
-            string[] namesplit = player.name.Split(' ');
-            card += "<div class='pname'><p>" + namesplit[namesplit.Length - 1] + "</p></div>";
+            //add gradient
+            card += "<div class='gradient' style='background: linear-gradient(0deg, "+ clr.mcolour +" 0%, " + clr.mcolour + "CC 60%," + clr.mcolour +"00 100%);'></div>";
 
             //add player img
-            card += "<div class='player' style='background-image:url(\"" + player.img + "\");'></div>";
+            card += "<img class='player' src='"+ player.img +"'>";
+
+            //add badge
+            card += "<div class='badgecont'>";
+            card += "<img class='Cbadge' src='testWhtml/images/badges/" + player.club + ".png'>";
+            card += "</div>";
+
+            //add name
+            card += "<div class='namecont'>";
+            string[] namesplit = player.name.Split(' ');
+            try{card += "<p class='fname'>" + namesplit[namesplit.Length - 2] + "</p>";}catch {card+= "<p class='fname' style='visibility: hidden;'>aa</p>"; }
+            card += "<p class='lname' style='color:"+clr.scolour+"'>" + namesplit[namesplit.Length - 1] + "</p>";
+            card += "</div>";
 
             //end
             card += "</div>";

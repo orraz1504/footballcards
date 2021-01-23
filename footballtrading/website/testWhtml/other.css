@@ -1,0 +1,74 @@
+@font-face {
+    font-family: eafifa;
+    src: url(fonts/EASPORTS15.ttf);
+}
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+body{
+}
+.card {
+    font-family: eafifa;
+    position: relative;
+    display: inline-block;
+    width: 350px;
+    height: 505px;
+    font-family: eafifa;
+    margin:10px;
+    overflow: hidden;
+}
+.badgecont {
+    height: 100%;
+    display: flex;
+    z-index: 5;
+    justify-content: center;
+    align-items:center;
+}
+.Cbadge{
+    left: 50%;
+    top: 50%;
+    transform: scale(.25);
+    opacity: .45;
+}
+.player{
+    position:absolute;
+    width:350px;
+    top: 140px;
+    z-index: 2;
+}
+.gradient{
+    position:absolute;
+    width:350px;
+    height:200px;
+    top: 300px;
+    z-index: 3;
+}
+.namecont{
+    width:350px;
+    height:70px;
+    top: 350px;
+    left: 5px;
+    margin: 0;
+    z-index: 4;
+    position: absolute;
+}
+.fname{
+    color: white;
+    position: relative;
+    margin: 0;
+    font-size: 320%;
+}
+.lname{
+    position: relative;
+    margin: 0;
+    padding: 0px,10px,0px,0px;
+    font-size: 380%;
+}
+.rating{
+    z-index: 4;
+    position: absolute;
+    color: white;
+    margin: 0;
+    font-size:70px;
+    top: -20px;
+    left: 5px;
+}

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Diagnostics;
 using DAL;
 using gf = DAL.GlobalFunctions;
 
@@ -11,13 +12,15 @@ public partial class cardDeck : System.Web.UI.Page
 {
     public string carddeck;
     private List<Card> allCards;
-    protected void Page_Load(object sender, EventArgs e)
+    private Dictionary<string, clubColour> clbclr;
+    protected void Page_Load(object sender, EventArgs e) 
     {
         start();
         sortByRating();
     }
     public void start()
     {
+        Debug.WriteLine("entered");
         frns.Attributes.Add("style", "display:none");
         nationS.Attributes.Add("style", "display:none");
         nationSub.Attributes.Add("style", "display:none");
@@ -27,13 +30,15 @@ public partial class cardDeck : System.Web.UI.Page
 
         allCards = new List<Card>();
 
-        string[] ids = cardInv.getAllcardId(Session["username"].ToString());
-        foreach (string id in ids)
-        {
-            allCards.Add(CardFunctions.getByCardId(Convert.ToInt32(id)));
-        }
+        Debug.WriteLine("starting DB");
+        string ids = cardInv.getAllcardId(Session["username"].ToString());
+        Debug.WriteLine("done DB");
+        Debug.WriteLine("starting DB2");
+        allCards=CardFunctions.getALLByCardId(ids);
         allCards = allCards.OrderByDescending(o => Convert.ToInt32(o.rating)).ToList();
 
+        clbclr = CardFunctions.getcolours();
+        Debug.WriteLine("done with start");
     }
     //on change for select
     protected void sortselec_SelectedIndexChanged(object sender, EventArgs e)
@@ -60,7 +65,7 @@ public partial class cardDeck : System.Web.UI.Page
         carddeck = "";
         foreach (Card crd in allCards)
         {
-            carddeck += gf.createCard(crd);
+            carddeck += gf.createCard(crd, clbclr[crd.club]);
         }
     }
 
@@ -70,7 +75,7 @@ public partial class cardDeck : System.Web.UI.Page
         foreach (Card c in allCards)
         {
             if (c.country.ToUpper() == nationS.Text.ToUpper())
-                carddeck += gf.createCard(c);
+                carddeck += gf.createCard(c, clbclr[c.club]);
         }
         nationS.Text = "";
         sortselec.ClearSelection();
@@ -83,7 +88,7 @@ public partial class cardDeck : System.Web.UI.Page
         foreach (Card c in allCards)
         {
             if (c.club.ToUpper() == clubS.Text.ToUpper())
-                carddeck += gf.createCard(c);
+                carddeck += gf.createCard(c, clbclr[c.club]);
         }
         clubS.Text = "";
         sortselec.ClearSelection();

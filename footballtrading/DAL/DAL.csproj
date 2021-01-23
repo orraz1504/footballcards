@@ -54,9 +54,12 @@
     <Compile Include="APICall.cs" />
     <Compile Include="apiClases\All.cs" />
     <Compile Include="apiClases\BS.cs" />
+    <Compile Include="Bet.cs" />
+    <Compile Include="BettingFunctions.cs" />
     <Compile Include="Card.cs" />
     <Compile Include="CardFunctions.cs" />
     <Compile Include="cardInv.cs" />
+    <Compile Include="clubColour.cs" />
     <Compile Include="FPLFunctions.cs" />
     <Compile Include="GlobalFunctions.cs" />
     <Compile Include="oldbhelper .cs" />
