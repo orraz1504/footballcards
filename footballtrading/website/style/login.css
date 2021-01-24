@@ -1,0 +1,83 @@
+body{
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    background-color:rgba(87,189,130);
+    transition: background 0.5 ease;
+    position: relative;
+}
+.inp_username,
+.inp_pass,
+.inp_sub,
+.inp_error,
+.inp_repass{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    height:50px;
+    width: 400px;
+    background-color: white;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    border: 2px;
+    transition: all 0.5 ease;
+}
+.inp_username input,
+.inp_pass input,
+.inp_sub input,
+.inp_repass input{
+    background:none;
+    border:none;
+    flex: 1;
+    margin-left:5px;
+    height: 100%;
+    outline:none;
+    font-size:20px;
+}
+.inp_username{
+    top: 40%;
+}
+.inp_sub{
+    top: 70%;
+}
+.inp_sub:hover{
+    animation-duration: 500ms;
+    animation-name: cngclr;
+    background-color: rgb(42, 192, 238);
+}
+@keyframes cngclr {
+    from {background-color: white;}
+    to {background-color: rgb(42, 192, 238);}
+  }
+.inp_repass{
+    top: 60%;
+}
+.inp_error{
+    top: 80%;
+    text-align: center;
+    font-size:1.7em;
+    background-color: rgba(255, 255, 0, 0);
+    color: white;
+}
+.reg{
+    display: inline-block;
+    position: absolute;
+    margin: 0;
+    left: 50%;
+    text-align: center;
+    top: 75%;
+    transform: translate(-50%,-50%);
+    height:50px;
+    font-size:1.3em;
+    width: 70%;
+}
+.reg a,
+.reg p{
+    display: inline-block;
+    margin-left: 5px;
+}
+.reg a:visited{
+    color:blue;
+}

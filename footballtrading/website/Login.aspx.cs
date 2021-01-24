@@ -27,6 +27,9 @@ public partial class Login : System.Web.UI.Page
             }
             else
             {
+                string name = "error_login()";
+                ScriptManager.RegisterClientScriptBlock(this, typeof(string), "Key", name, true);
+        
                 error = "invaild username or password";
             }
         }

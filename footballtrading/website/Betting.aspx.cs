@@ -65,7 +65,7 @@ public partial class Betting : System.Web.UI.Page
 
         HtmlGenericControl homeTClass = new HtmlGenericControl("DIV");
         homeTClass.Attributes.Add("class", "col - sm");
-        homeTClass.InnerHtml = "<img src='testWhtml/images/badges/" + homeT + ".png'>"; ;
+        homeTClass.InnerHtml = "<img src='images/badges/" + homeT + ".png'>"; ;
         gameWrap.Controls.Add(homeTClass);
 
 
@@ -103,7 +103,7 @@ public partial class Betting : System.Web.UI.Page
 
         HtmlGenericControl awayTClass = new HtmlGenericControl("DIV");
         awayTClass.Attributes.Add("class", "col - sm");
-        awayTClass.InnerHtml = "<img src='testWhtml/images/badges/" + awayT + ".png'>"; ;
+        awayTClass.InnerHtml = "<img src='images/badges/" + awayT + ".png'>"; ;
         gameWrap.Controls.Add(awayTClass);
     }
     public void addclub(string club)
@@ -194,7 +194,7 @@ public partial class Betting : System.Web.UI.Page
 
         HtmlGenericControl homeTClass = new HtmlGenericControl("DIV");
         homeTClass.Attributes.Add("class", "col - sm");
-        homeTClass.InnerHtml = "<img src='testWhtml/images/badges/" + homeT + ".png'>";
+        homeTClass.InnerHtml = "<img src='images/badges/" + homeT + ".png'>";
         gameWrap.Controls.Add(homeTClass);
 
 
@@ -299,7 +299,7 @@ public partial class Betting : System.Web.UI.Page
 
         HtmlGenericControl awayTClass = new HtmlGenericControl("DIV");
         awayTClass.Attributes.Add("class", "col - sm");
-        awayTClass.InnerHtml = "<img src='testWhtml/images/badges/" + awayT + ".png'>"; ;
+        awayTClass.InnerHtml = "<img src='images/badges/" + awayT + ".png'>"; ;
         gameWrap.Controls.Add(awayTClass);
     }
     protected void Claim_Click(object sender, EventArgs e)

@@ -1,20 +1,30 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Register.aspx.cs" Inherits="Register" %>
+﻿<%@ Page Title="" Language="C#" AutoEventWireup="true" CodeFile="Register.aspx.cs" Inherits="Register" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<head>
     <script src="scripts/register.js"></script>
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-        <form class="form1" action="register.aspx" method="POST" runat="Server" onsubmit="return validate()">
-            <label for="username">Username:</label> <br/>
-            <input type="text" id="username" name="username" required/> <br/>
-            
-            <label for="pass">Password:</label> <br/>
-            <input type="password" name="pass" id="pass" required> <br/>
-            <label for="repass">Re-enter Password:</label> <br/>
-            <input type="password" name="repass" id="repass" required><br/>
-
+    <link rel="stylesheet" href="style/login.css">
+</head>
+<body>
+    <form class="form1" action="register.aspx" method="POST" runat="Server" onsubmit="return validate()">
+        <div class="inp_username">
+            <input type="text" id="username" placeholder="username" name="username" required/>
+        </div>
+        <div class="inp_pass">
+            <input type="password" placeholder="password" name="pass" id="pass" required>
+        </div>
+        <div class="inp_repass">
+            <input type="password" placeholder="re-enter password" name="repass" id="repass" required>
+        </div>
+        <div class="inp_sub">
             <input class="sub" type="submit" value="submit">
+        </div>
+        <div class="inp_error">
+            <% =error%>
+       </div>
+       <div class="reg">
+        <p>Already have an account?</p><a href="Login.aspx">Login</a>
+   </div>
+
     </form>
-    <%=error %>
-</asp:Content>
+</body>
 

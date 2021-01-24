@@ -27,7 +27,7 @@ namespace DAL
 
             //add badge
             card += "<div class='badgecont'>";
-            card += "<img class='Cbadge' src='testWhtml/images/badges/" + player.club + ".png'>";
+            card += "<img class='Cbadge' src='images/badges/" + player.club + ".png'>";
             card += "</div>";
 
             //add name
@@ -62,7 +62,7 @@ namespace DAL
             string fixture = "<div class='row'>";
 
             fixture += "<div class='col - sm'>";
-            fixture += "<img src='testWhtml/images/badges/" + homeT + ".png'>";
+            fixture += "<img src='images/badges/" + homeT + ".png'>";
             fixture += "</div>";
             
             fixture += "<div class='col - sm'>";
@@ -88,7 +88,7 @@ namespace DAL
             fixture += "</div>";
 
             fixture += "<div class='col - sm'>";
-            fixture += "<img src='testWhtml/images/badges/" + awayT + ".png'>";
+            fixture += "<img src='images/badges/" + awayT + ".png'>";
             fixture += "</div>";
 
             fixture += "</div>";

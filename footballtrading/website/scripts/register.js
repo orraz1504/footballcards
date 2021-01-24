@@ -11,8 +11,12 @@ function validatePasword(){
     }
     else{
         repass.setCustomValidity("Passwords Don't Match");
+        document.body.style.background="#bd5757";
         pass.onchange=validatePasword;
         repass.onkeyup=validatePasword;
         return false;
     }
+}
+function error_login(){
+    document.body.style.background="#bd5757";
 }
