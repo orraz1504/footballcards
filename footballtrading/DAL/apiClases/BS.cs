@@ -42,8 +42,22 @@ namespace DAL.apiClases
         public List<object> phases { get; set; }
         public List<object> teams { get; set; }
         public int total_players { get; set; }
-        public List<object> elements { get; set; }
+        public List<Element> elements { get; set; }
         public List<object> element_stats { get; set; }
         public List<object> element_types { get; set; }
     }
+    public class Element 
+    {
+        public int id { get; set; }
+        public int clean_sheets { get; set; }
+        public int assists { get; set; }
+        public int goals_scored { get; set; }
+        public int minutes { get; set; }
+        public int saves { get; set; }
+        public int red_cards { get; set; }
+        public int yellow_cards { get; set; }
+
+    }
+
+
 }

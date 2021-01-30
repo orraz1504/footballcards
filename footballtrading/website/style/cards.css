@@ -1,0 +1,120 @@
+@font-face {
+  font-family: eafifa;
+  src: url(../fonts/EASPORTS15.ttf);
+}
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+}
+.deck{
+}
+
+.card {
+  display: inline-block;
+  font-family: eafifa;
+  margin: 100px auto 0;
+  margin-left: 20px;
+  width: 350px;
+  height: 505px;
+  perspective: 1000px;
+  border: none;
+}
+
+.card__inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+}
+
+.card__inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+
+.card__face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
+}
+
+.card__face--front {
+  background-color: lightblue;
+}
+.card__face--back {
+  background-color: lightblue;
+  transform: rotateY(180deg);
+}
+
+.badgecont {
+  height: 100%;
+  display: flex;
+  z-index: 5;
+  justify-content: center;
+  align-items:center;
+}
+.Cbadge{
+  left: 50%;
+  top: 50%;
+  transform: scale(.25);
+  opacity: .45;
+}
+.player{
+  position:absolute;
+  width:350px;
+  top: 140px;
+  z-index: 2;
+}
+.gradient{
+  position:absolute;
+  width:350px;
+  height:200px;
+  top: 300px;
+  z-index: 3;
+}
+.namecont{
+  width:350px;
+  height:70px;
+  top: 350px;
+  left: 5px;
+  margin: 0;
+  z-index: 4;
+  position: absolute;
+}
+.fname{
+  color: white;
+  position: relative;
+  margin: 0;
+  font-size: 320%;
+}
+.lname{
+  position: relative;
+  margin: 0;
+  padding: 0px,10px,0px,0px;
+  font-size: 380%;
+}
+.rating{
+  z-index: 4;
+  position: absolute;
+  color: white;
+  margin: 0;
+  font-size:70px;
+  top: -5px;
+  left: 5px;
+}
+.goals{
+}

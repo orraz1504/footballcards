@@ -9,6 +9,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using DAL;
+using DAL.apiClases;
 using gf = DAL.GlobalFunctions;
 using System.Diagnostics;
 
@@ -37,15 +38,6 @@ public partial class cardDeck : System.Web.UI.Page
         }
         if (PackPlaceHolder.Controls.Count == 0)
             carddeck = "<p>no packs available</p>";
-    }
-    //creating all players from club
-    public void printAllPlayersFromClub(string club)
-    {
-        List<Card> playerss = CardFunctions.getByClub(club);
-        foreach (Card player in playerss)
-        {
-            carddeck += gf.createCard(player,clbclr[player.club]);
-        }
     }
 
     // the function gets the rating and the card list and handesls the return if contains
@@ -109,6 +101,7 @@ public partial class cardDeck : System.Web.UI.Page
 
             Random rnd = new Random();
             cards = new List<Card>();
+            List<string> cid = new List<string>();
             for (int i = 0; i < 5; i++)
             {
                 int num = rnd.Next(100);
@@ -116,21 +109,25 @@ public partial class cardDeck : System.Web.UI.Page
                 {
                     Card card = cardByRating(cards, 0, 80);
                     cards.Add(card);
+                    cid.Add(card.id.ToString());
                 }
                 else if (num > under80 && num <= under85)
                 {
                     Card card = cardByRating(cards, 80, 85);
                     cards.Add(card);
+                    cid.Add(card.id.ToString());
                 }
                 else if (num > under85 && num <= under90)
                 {
                     Card card = cardByRating(cards, 85, 90);
                     cards.Add(card);
+                    cid.Add(card.id.ToString());
                 }
                 else if (num > under90 && num <= under99)
                 {
                     Card card = cardByRating(cards, 90, 99);
                     cards.Add(card);
+                    cid.Add(card.id.ToString());
                 }
                 else
                 {
@@ -138,18 +135,28 @@ public partial class cardDeck : System.Web.UI.Page
                 }
                 Debug.WriteLine("num- " + num);
             }
+            Debug.WriteLine("started with API");
+            Dictionary<string, Element> dic = APICall.getListOfStats(cid);
+            Debug.WriteLine("Done with API");
             foreach (Card player in cards.OrderByDescending(x => x.rating).ToList())
             {
-                carddeck += gf.createCard(player, clbclr[player.club]);
+                try
+                {
+                    carddeck += gf.createCard(player, clbclr[player.club], dic[player.id.ToString()]);
+                }
+                catch
+                {
+                    carddeck += gf.createCard(player, clbclr[player.club], new Element());
+                }
 
                 if (!cardInv.checkDuplicate(Session["username"].ToString(), player.id.ToString()))
                 {
-                    cardInv.Addplayer(Session["username"].ToString(), player.id.ToString());
+                    //cardInv.Addplayer(Session["username"].ToString(), player.id.ToString());//remooooove
                 }
                 Debug.WriteLine(player.id);
             }
-            PackFunctions.deletePack(Session["username"].ToString(), packID);
-            PackPlaceHolder.Controls.Remove((Button)sender);
+            //PackFunctions.deletePack(Session["username"].ToString(), packID);//remooooove
+            //PackPlaceHolder.Controls.Remove((Button)sender);//remooooove
             PackPlaceHolder.Visible = false;
             saveB.Visible = true;
         }

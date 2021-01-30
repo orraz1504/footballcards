@@ -15,6 +15,30 @@ body{
     font-family: eafifa;
     margin:10px;
     overflow: hidden;
+    perspective: 1000px;
+}
+.crad_inner{
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
+}
+.card_inner.isFlipped{
+    transform: rotateY(180deg);
+}
+.card_face{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.front{
+}
+.c_back{
+    transform: rotateY(180deg);
 }
 .badgecont {
     height: 100%;
@@ -71,4 +95,7 @@ body{
     font-size:70px;
     top: -20px;
     left: 5px;
+}
+.goals{
+    font-size: 3em;
 }

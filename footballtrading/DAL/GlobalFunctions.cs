@@ -11,19 +11,25 @@ namespace DAL
 {
     public static class GlobalFunctions
     {
-        public static string createCard(Card player, clubColour clr)
+        public static string createCard(Card player, clubColour clr, Element els)
         {
             //create card
-            string card = "<div class='card' style='background-color:" + clr.mcolour + "'>";
+            string card = "<div class='card' >";
+            card += "<div class='card__inner'>";
+
+
+
+            //front
+            card += "<div class='card__face card__face--front' style='background-color:" + clr.mcolour + "'>";
 
             //create Rating text
             card += "<div class='rating'><p>" + player.rating + "</p></div>";
 
             //add gradient
-            card += "<div class='gradient' style='background: linear-gradient(0deg, "+ clr.mcolour +" 0%, " + clr.mcolour + "CC 60%," + clr.mcolour +"00 100%);'></div>";
+            card += "<div class='gradient' style='background: linear-gradient(0deg, " + clr.mcolour + " 0%, " + clr.mcolour + "CC 60%," + clr.mcolour + "00 100%);'></div>";
 
             //add player img
-            card += "<img class='player' src='"+ player.img +"'>";
+            card += "<img class='player' src='" + player.img + "'>";
 
             //add badge
             card += "<div class='badgecont'>";
@@ -33,12 +39,39 @@ namespace DAL
             //add name
             card += "<div class='namecont'>";
             string[] namesplit = player.name.Split(' ');
-            try{card += "<p class='fname'>" + namesplit[namesplit.Length - 2] + "</p>";}catch {card+= "<p class='fname' style='visibility: hidden;'>aa</p>"; }
-            card += "<p class='lname' style='color:"+clr.scolour+"'>" + namesplit[namesplit.Length - 1] + "</p>";
+            try { card += "<p class='fname'>" + namesplit[namesplit.Length - 2] + "</p>"; } catch { card += "<p class='fname' style='visibility: hidden;'>aa</p>"; }
+            card += "<p class='lname' style='color:" + clr.scolour + "'>" + namesplit[namesplit.Length - 1] + "</p>";
             card += "</div>";
+
+
+            card += "</div>";
+
+
+            //back of card
+            card += "<div class='card__face card__face--back' style='background-color:" + clr.mcolour + "'>";
+            card += "<div class='mins'><p style='color:" + clr.scolour + "'>Minutes: " + els.minutes + "</p></div>";
+            if (player.pos != "Goalkeeper")
+            {
+                card += "<div class='goals'><p style='color:" + clr.scolour + "'>Goals scored: " + els.goals_scored + "</p></div>";
+                card += "<div class='assits'><p style='color:" + clr.scolour + "'>Assits: " + els.assists + "</p></div>";
+                
+            }
+            else
+            {
+                card += "<div class='saves'><p style='color:" + clr.scolour + "'>saves: " + els.saves + "</p></div>";
+                card += "<div class='cleansheet'><p style='color:" + clr.scolour + "'>clean sheet: " + els.clean_sheets + "</p></div>";
+                card += "<div class='yellow'><p style='color:" + clr.scolour + "'>yellow cards: " + els.yellow_cards + "</p></div>";
+                card += "<div class='red'><p style='color:" + clr.scolour + "'>red cards: " + els.red_cards + "</p></div>";
+            }
+            card += "</div>";
+
 
             //end
             card += "</div>";
+            card += "</div>";
+            
+           
+
             return card;
         }
         public static string CreateGame(Root game, Dictionary<int,string> clubs)

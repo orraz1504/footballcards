@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Diagnostics;
 using DAL;
+using DAL.apiClases;
 using gf = DAL.GlobalFunctions;
 
 public partial class cardDeck : System.Web.UI.Page
@@ -13,6 +14,7 @@ public partial class cardDeck : System.Web.UI.Page
     public string carddeck;
     private List<Card> allCards;
     private Dictionary<string, clubColour> clbclr;
+    private Dictionary<string, Element> els;
     protected void Page_Load(object sender, EventArgs e) 
     {
         start();
@@ -31,11 +33,16 @@ public partial class cardDeck : System.Web.UI.Page
         allCards = new List<Card>();
 
         Debug.WriteLine("starting DB");
-        string ids = cardInv.getAllcardId(Session["username"].ToString());
+        string ids =cardInv.getAllcardId(Session["username"].ToString());
         Debug.WriteLine("done DB");
         Debug.WriteLine("starting DB2");
-        allCards=CardFunctions.getALLByCardId(ids);
+        allCards=CardFunctions.getALLByCardId("(" + ids + ")");
         allCards = allCards.OrderByDescending(o => Convert.ToInt32(o.rating)).ToList();
+
+
+        List<string> ls = ids.Split(',').ToList();
+
+        els = APICall.getListOfStats(ls);
 
         clbclr = CardFunctions.getcolours();
         Debug.WriteLine("done with start");
@@ -65,7 +72,15 @@ public partial class cardDeck : System.Web.UI.Page
         carddeck = "";
         foreach (Card crd in allCards)
         {
-            carddeck += gf.createCard(crd, clbclr[crd.club]);
+            try
+            {
+
+                carddeck += gf.createCard(crd, clbclr[crd.club], els[crd.id.ToString()]);
+            }
+            catch
+            {
+                carddeck += gf.createCard(crd, clbclr[crd.club], new Element());
+            }
         }
     }
 
@@ -75,7 +90,17 @@ public partial class cardDeck : System.Web.UI.Page
         foreach (Card c in allCards)
         {
             if (c.country.ToUpper() == nationS.Text.ToUpper())
-                carddeck += gf.createCard(c, clbclr[c.club]);
+            {
+                try
+                {
+
+                    carddeck += gf.createCard(c, clbclr[c.club], els[c.id.ToString()]);
+                }
+                catch
+                {
+                    carddeck += gf.createCard(c, clbclr[c.club], new Element());
+                }
+            }
         }
         nationS.Text = "";
         sortselec.ClearSelection();
@@ -88,7 +113,16 @@ public partial class cardDeck : System.Web.UI.Page
         foreach (Card c in allCards)
         {
             if (c.club.ToUpper() == clubS.Text.ToUpper())
-                carddeck += gf.createCard(c, clbclr[c.club]);
+            {
+                try
+                {
+                    carddeck += gf.createCard(c, clbclr[c.club], els[c.id.ToString()]);
+                }
+                catch
+                {
+                    carddeck += gf.createCard(c, clbclr[c.club], new Element());
+                }
+            }
         }
         clubS.Text = "";
         sortselec.ClearSelection();

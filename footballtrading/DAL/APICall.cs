@@ -24,6 +24,31 @@ namespace DAL
             var call = JsonConvert.DeserializeObject<List<Root>>(football_Jason);
             return call;
         }
+        public static Dictionary<string, Element> getListOfStats(List<string> ids)
+        {
+
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            WebRequest request = HttpWebRequest.Create(@"https://fantasy.premierleague.com/api/bootstrap-static/");
+            WebResponse responce = request.GetResponse();
+            StreamReader reader = new StreamReader(responce.GetResponseStream());
+            string football_Jason = reader.ReadToEnd();
+
+            Dictionary<string, Element> dic = new Dictionary<string, Element>();
+
+            var call = JsonConvert.DeserializeObject<BooStat>(football_Jason);
+            foreach (Element eve in call.elements)
+            {
+                foreach (string id in ids)
+                {
+                    if (eve.id == Convert.ToInt32(id))
+                    {
+                        dic.Add(id, eve);
+                    }
+                }
+            }
+            return dic;
+        }
         public static int getCurrentGameweek(int offset)
         {
             ServicePointManager.Expect100Continue = true;
