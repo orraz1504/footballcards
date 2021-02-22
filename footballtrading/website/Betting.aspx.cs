@@ -19,12 +19,18 @@ public partial class Betting : System.Web.UI.Page
     public string error;
     protected void Page_Load(object sender, EventArgs e)
     {
+        //only people logged in can use this page
+        if (Session["username"] == null)
+        {
+            Response.Redirect("~/initPage.aspx");
+        }
+
         addFixtures();
         bets.Visible = false;
         gameid.Visible = false;
         //important to remove later!!!!!!!!!!!!!!!!!
-        Session["username"] = "orez";
-        if (ViewState["State"]!=null && ViewState["State"].ToString() == "2")
+        //Session["username"] = "ort";
+        if (ViewState["State"] != null && ViewState["State"].ToString() == "2")
         {
             state2();
         }
@@ -33,7 +39,7 @@ public partial class Betting : System.Web.UI.Page
     {
         int x = 1;
         fixs = APICall.GetCall();
-        List<Root> lr = APICall.sortbyNextGameWeek(fixs, APICall.getCurrentGameweek(0));
+        List<Root> lr = APICall.sortbyNextGameWeek(fixs, APICall.getCurrentGameweek(1));
         clubs = FPLFunctions.getdicOfClubs();
         foreach (Root fixture in lr)
         {
@@ -249,10 +255,10 @@ public partial class Betting : System.Web.UI.Page
                 {
                     string c1 = "";
                     string c2 = "";
-                    try { c1 = CardFunctions.getByCardId(stt.a[0].element).name;}catch { }
+                    try { c1 = CardFunctions.getByCardId(stt.a[0].element).name; } catch { }
                     try { c2 = CardFunctions.getByCardId(stt.h[0].element).name; } catch { }
 
-                    if (c1 == lb.scorer || c2 ==lb.scorer)
+                    if (c1 == lb.scorer || c2 == lb.scorer)
                     {
                         sOrT.InnerHtml += "<p style='color: green;'>First scorer: [" + lb.scorer + "] </p>";
                         isscorer = true;
@@ -275,10 +281,10 @@ public partial class Betting : System.Web.UI.Page
             if (lb.didClaim)
                 b.Enabled = false;
             if (isrlscore)
-                b.Attributes["gold"] ="1";
+                b.Attributes["gold"] = "1";
             if (isscorer)
                 b.Attributes["diamond"] = "1";
-            if(iswteam)
+            if (iswteam)
                 b.Attributes["silver"] = "1";
 
 
@@ -307,7 +313,7 @@ public partial class Betting : System.Web.UI.Page
         Debug.WriteLine("in");
         Button b = (Button)sender;
         if (b.Attributes["gold"] == "1")
-            PackFunctions.addPack(Session["username"].ToString() ,"1");
+            PackFunctions.addPack(Session["username"].ToString(), "1");
         if (b.Attributes["diamond"] == "1")
             PackFunctions.addPack(Session["username"].ToString(), "2");
         if (b.Attributes["silver"] == "1")

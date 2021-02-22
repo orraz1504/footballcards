@@ -8,6 +8,7 @@ using System.Diagnostics;
 using DAL;
 using DAL.apiClases;
 using gf = DAL.GlobalFunctions;
+using System.Web.UI.HtmlControls;
 
 public partial class cardDeck : System.Web.UI.Page
 {
@@ -17,18 +18,16 @@ public partial class cardDeck : System.Web.UI.Page
     private Dictionary<string, Element> els;
     protected void Page_Load(object sender, EventArgs e) 
     {
+        //only people logged in can use this page
+        if (Session["username"] == null)
+        {
+            Response.Redirect("~/initPage.aspx");
+        }
         start();
-        sortByRating();
+        showAll();
     }
     public void start()
     {
-        Debug.WriteLine("entered");
-        frns.Attributes.Add("style", "display:none");
-        nationS.Attributes.Add("style", "display:none");
-        nationSub.Attributes.Add("style", "display:none");
-        frcs.Attributes.Add("style", "display:none");
-        clubS.Attributes.Add("style", "display:none");
-        clubsub.Attributes.Add("style", "display:none");
 
         allCards = new List<Card>();
 
@@ -46,85 +45,74 @@ public partial class cardDeck : System.Web.UI.Page
 
         clbclr = CardFunctions.getcolours();
         Debug.WriteLine("done with start");
+
+        bfix.Visible = true;
+        afix.Visible = false;
     }
-    //on change for select
-    protected void sortselec_SelectedIndexChanged(object sender, EventArgs e)
+    public void showAll()
     {
-        if (sortselec.SelectedValue == "nation")
+        List<string[]> li = CardFunctions.getClubsTotal();
+        foreach (string[] Club in li)
         {
-            frns.Attributes["style"] = "display:inline-block;";
-            nationS.Attributes["style"] = "display:inline-block;";
-            nationSub.Attributes["style"] = "display:inline-block;";
-        }
-        else if (sortselec.SelectedValue == "club")
-        {
-            frcs.Attributes["style"] = "display:inline-block;";
-            clubS.Attributes["style"] = "display:inline-block;";
-            clubsub.Attributes["style"] = "display:inline-block;";
-        }
-        else if(sortselec.SelectedValue == "rating")
-        {
-            sortByRating();
+            HtmlGenericControl all = new HtmlGenericControl("DIV");
+            all.Attributes.Add("class", "bard");
+            all.Style.Add("background-color", clbclr[Club[0]].scolour);
+            bfix.Controls.Add(all);
+
+            int howmany = count(Club[0]);
+
+            HtmlGenericControl bbox = new HtmlGenericControl("DIV");
+            bbox.Attributes.Add("class", "box");
+            bbox.InnerHtml += gf.createClubPrec(Club, howmany, clbclr[Club[0]]);
+            all.Controls.Add(bbox);
+
+            Button b = new Button();
+            b.Text= (100 * howmany) / Convert.ToInt32(Club[1]) + "%";
+            b.Attributes["club"]= Club[0];
+            b.Attributes.Add("class", "btn btn-primary");
+            b.Attributes.Add("runat", "server");
+            b.Click += clickedonclub;
+            bbox.Controls.Add(b);
+            
         }
     }
-    public void sortByRating()
+    public void clickedonclub(object sender, EventArgs e)
     {
+        string clubname = ((Button)sender).Attributes["club"];
         carddeck = "";
+        foreach (Card c in allCards)
+        {
+            if (c.club == clubname)
+            {
+                try
+                {
+                    carddeck += gf.createCard(c, clbclr[c.club], els[c.id.ToString()]);
+                }
+                catch
+                {
+                    carddeck += gf.createCard(c, clbclr[c.club], new Element());
+                }
+            }
+        }
+        bfix.Visible = false;
+        afix.Visible = true;
+    }
+    public int count(string name)
+    {
+        int counter = 0;
         foreach (Card crd in allCards)
         {
-            try
-            {
-
-                carddeck += gf.createCard(crd, clbclr[crd.club], els[crd.id.ToString()]);
-            }
-            catch
-            {
-                carddeck += gf.createCard(crd, clbclr[crd.club], new Element());
-            }
+            if (crd.club == name)
+                counter++;
         }
+        return counter;
     }
 
-    protected void nationSub_Click(object sender, EventArgs e)
+    protected void back_Click(object sender, EventArgs e)
     {
-        carddeck = "";
-        foreach (Card c in allCards)
-        {
-            if (c.country.ToUpper() == nationS.Text.ToUpper())
-            {
-                try
-                {
-
-                    carddeck += gf.createCard(c, clbclr[c.club], els[c.id.ToString()]);
-                }
-                catch
-                {
-                    carddeck += gf.createCard(c, clbclr[c.club], new Element());
-                }
-            }
-        }
-        nationS.Text = "";
-        sortselec.ClearSelection();
-
+        carddeck += "";
+        bfix.Visible = true;
+        afix.Visible = false;
     }
 
-    protected void clubsub_Click(object sender, EventArgs e)
-    {
-        carddeck = "";
-        foreach (Card c in allCards)
-        {
-            if (c.club.ToUpper() == clubS.Text.ToUpper())
-            {
-                try
-                {
-                    carddeck += gf.createCard(c, clbclr[c.club], els[c.id.ToString()]);
-                }
-                catch
-                {
-                    carddeck += gf.createCard(c, clbclr[c.club], new Element());
-                }
-            }
-        }
-        clubS.Text = "";
-        sortselec.ClearSelection();
-    }
 }

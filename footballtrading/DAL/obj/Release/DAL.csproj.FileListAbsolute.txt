@@ -1,0 +1,10 @@
+C:\Users\User\Desktop\footballcards\footballtrading\DAL\bin\Release\DAL.dll.config
+C:\Users\User\Desktop\footballcards\footballtrading\DAL\bin\Release\DAL.dll
+C:\Users\User\Desktop\footballcards\footballtrading\DAL\bin\Release\DAL.pdb
+C:\Users\User\Desktop\footballcards\footballtrading\DAL\bin\Release\Newtonsoft.Json.dll
+C:\Users\User\Desktop\footballcards\footballtrading\DAL\bin\Release\Newtonsoft.Json.xml
+C:\Users\User\Desktop\footballcards\footballtrading\DAL\obj\Release\DAL.csprojAssemblyReference.cache
+C:\Users\User\Desktop\footballcards\footballtrading\DAL\obj\Release\DAL.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\footballcards\footballtrading\DAL\obj\Release\DAL.csproj.CopyComplete
+C:\Users\User\Desktop\footballcards\footballtrading\DAL\obj\Release\DAL.dll
+C:\Users\User\Desktop\footballcards\footballtrading\DAL\obj\Release\DAL.pdb

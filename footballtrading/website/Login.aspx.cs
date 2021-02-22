@@ -23,6 +23,8 @@ public partial class Login : System.Web.UI.Page
             if (userFunction.isUsername(username) && userFunction.checkPassword(username, password))
             {
                 Session["username"] = username;
+                Response.Cookies["UserName"].Value = username;
+                Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(360);
                 Response.Redirect("~/index.aspx");
             }
             else

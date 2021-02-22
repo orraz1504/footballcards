@@ -6,9 +6,12 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <form Runat="server">
-        <asp:PlaceHolder runat="server" ID="PackPlaceHolder"></asp:PlaceHolder>
-        <div class="deck">
-           <%=carddeck %>
+        <asp:Button ID="testbtn" runat="server" Text="Button" OnClick="testbtn_Click" />
+        <div class="row">
+            <asp:PlaceHolder runat="server" ID="PackPlaceHolder"></asp:PlaceHolder>
+            <div class="deck">
+               <%=carddeck %>
+            </div>
         </div>
         <asp:Button ID="saveB" runat="server" Text="Save Pack" OnClick="saveB_Click" />
     </form>

@@ -9,11 +9,18 @@ public partial class initPage : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!IsPostBack)
+        {
+            if (Request.Cookies["UserName"] != null)
+            {
+                Session["username"] = Request.Cookies["UserName"].Value;
+                Response.Redirect("~/index.aspx");
+            }
+        }
     }
 
     protected void StartButton_Click(object sender, EventArgs e)
     {
-        Response.Redirect("~/Login.aspx");
+        Response.Redirect("~/Register.aspx");
     }
 }

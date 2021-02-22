@@ -14,11 +14,11 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <form Runat="server" >
-        <asp:Button ID="myBetsbtn" runat="server" Text="My Bets" class="btn btn-primary" OnClick="myBets_Click" />
+        
     <div class="games">
         <%=error %>
-            <asp:PlaceHolder ID="mfix" runat="server"></asp:PlaceHolder>
-        <asp:PlaceHolder ID="bfix" runat="server"></asp:PlaceHolder>
+            <asp:PlaceHolder ID="mfix" runat="server"><asp:Button ID="myBetsbtn" runat="server" Text="My Bets" class="btn btn-primary" OnClick="myBets_Click" /></asp:PlaceHolder>
+            <asp:PlaceHolder ID="bfix" runat="server"></asp:PlaceHolder>
     </div>
 
     <div class="bets">

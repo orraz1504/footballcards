@@ -68,16 +68,20 @@ namespace DAL
         }
         public static List<Card> getALLByCardId(string Id)
         {
-            string com = "SELECT * FROM [card] where [cardID] IN " + Id;
-            DataTable dt = oledbhelper.GetTable(com);
-            List<Card> lc = new List<Card>();
-            for (int i = 0; i < dt.Rows.Count; i++)
+            try
             {
-                DataRow dr = dt.Rows[i];
-                int itemNum = dr.ItemArray.Length;
-                lc.Add(new Card(Convert.ToInt32(dr.ItemArray[0].ToString()), dr.ItemArray[1].ToString(), dr.ItemArray[2].ToString(), dr.ItemArray[3].ToString(), dr.ItemArray[4].ToString(), Convert.ToInt32(dr.ItemArray[5].ToString()), dr.ItemArray[6].ToString(), dr.ItemArray[7].ToString()));
+                string com = "SELECT * FROM [card] where [cardID] IN " + Id;
+                DataTable dt = oledbhelper.GetTable(com);
+                List<Card> lc = new List<Card>();
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    DataRow dr = dt.Rows[i];
+                    int itemNum = dr.ItemArray.Length;
+                    lc.Add(new Card(Convert.ToInt32(dr.ItemArray[0].ToString()), dr.ItemArray[1].ToString(), dr.ItemArray[2].ToString(), dr.ItemArray[3].ToString(), dr.ItemArray[4].ToString(), Convert.ToInt32(dr.ItemArray[5].ToString()), dr.ItemArray[6].ToString(), dr.ItemArray[7].ToString()));
+                }
+                return lc;
             }
-            return lc;
+            catch { return new List<Card>(); }
         }
         public static Dictionary<string, clubColour> getcolours()
         {
@@ -89,6 +93,17 @@ namespace DAL
                 dic.Add(dr.ItemArray[1].ToString(),new clubColour(dr.ItemArray[2].ToString(), dr.ItemArray[3].ToString()));
             }
             return dic;
+        }
+        public static List<string[]> getClubsTotal()
+        {
+            var li = new List<string[]>();
+            string com = "SELECT * FROM [Clubs]";
+            DataTable dt = oledbhelper.GetTable(com);
+            foreach (DataRow dr in dt.Rows)
+            {
+                li.Add(new string[] {dr.ItemArray[1].ToString(),dr.ItemArray[4].ToString() });
+            }
+            return li;
         }
     }
 }

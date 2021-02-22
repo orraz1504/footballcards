@@ -74,6 +74,26 @@ namespace DAL
 
             return card;
         }
+        public static string createClubPrec(string[] a, int curnum, clubColour clr)
+        {
+
+            string stylecalc = "stroke-dashoffset:calc(440 - (440 * "+ (100 * curnum)/ Convert.ToInt32(a[1]) + ") / 100); stroke:"+clr.mcolour;
+
+
+            string club = "<div class='precent'>";
+            club += "<svg>";
+            club += "<circle style='"+stylecalc+"' cx='70' cy='70' r='70'></circle>";
+            club += "<circle style='" + stylecalc + "' cx='70' cy='70' r='70'></circle>";
+            club += "</svg>";
+            club += "<div class='clubbdg'>";
+            club+= "<img src='images/badges/" + a[0] + ".png'>";
+            club += "</div>";
+            club += "</div>";
+            club += "<h2>"+ (100 * curnum) / Convert.ToInt32(a[1]) + "%</h2>";
+
+
+            return club;
+        }
         public static string CreateGame(Root game, Dictionary<int,string> clubs)
         {
             //creating vairables

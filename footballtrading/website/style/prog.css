@@ -1,0 +1,72 @@
+svg{
+    position: relative;
+    width: 150px;
+    height: 150px;
+    z-index: 1000;
+    overflow: hidden;
+}
+svg circle{
+    width:100%;
+    height: 100%;
+    fill:none;
+    stroke:lightskyblue;
+    stroke-width: 10;
+    stroke-linecap: round;
+    transform: translate(5px,5px);
+}
+.bard img{
+    width:100px;
+    height:100px;
+}
+.container{
+    position: relative;
+    width:900px;
+    display:inline-block;
+}
+.bard{
+    padding-top: 10px;
+    position:relative;
+    width:250px;
+    background-color: aliceblue;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    height:300px;
+    border-radius: 5px;
+    text-align: center;
+    overflow: hidden;
+    transition: transform .3s;
+}
+.bard:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, .5);
+}
+.precent{
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 50px;
+    z-index: 1000;
+}
+.clubbdg{
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    transition: all .3s;
+}
+.precent{
+    font-weight: 700;
+    font-size: 40px;
+}
+.bard:hover .clubbdg{
+    transform: scale(1.2);
+}
+svg circle{
+    stroke-dasharray: 440;
+}

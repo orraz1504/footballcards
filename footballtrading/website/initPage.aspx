@@ -58,7 +58,7 @@
     <section style="background-color:#3d195b;">
         <div id="last" class="bcontainer">
             <form runat="server">
-                <a href="Login.aspx">Start Now</a>
+                <a href="Register.aspx">Start Now</a>
             </form>
         </div>
     </section>

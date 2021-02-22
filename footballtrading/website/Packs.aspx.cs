@@ -20,6 +20,12 @@ public partial class cardDeck : System.Web.UI.Page
     private Dictionary<string, clubColour> clbclr;
     protected void Page_Load(object sender, EventArgs e)
     {
+        //only people logged in can use this page
+        if (Session["username"] == null)
+        {
+            Response.Redirect("~/initPage.aspx");
+        }
+
         createpacksforuser();
         saveB.Visible = false;
         clbclr = CardFunctions.getcolours();
@@ -30,11 +36,35 @@ public partial class cardDeck : System.Web.UI.Page
         List<int> packsFU = PackFunctions.packsByUsername(Session["username"].ToString());
         foreach (int PackId in packsFU)
         {
+            HtmlGenericControl cont = new HtmlGenericControl("DIV");
+            cont.Attributes.Add("class", "col");
+            PackPlaceHolder.Controls.Add(cont);
+            HtmlGenericControl css = new HtmlGenericControl("DIV");
+            string adress = "";
+            switch (PackId)
+            {
+                case 1:
+                    adress = "images/packs/gold.png";
+                    break;
+                case 2:
+                    adress = "images/packs/diamond.png";
+                    break;
+                default:
+                    adress = "images/packs/silver.png";
+                    break;
+            }
+            css.Attributes.Add("class", "row");
+            css.InnerHtml += "<img src='" + adress + "'/>";
+            cont.Controls.Add(css);
+            HtmlGenericControl cont2 = new HtmlGenericControl("DIV");
+            cont2.Attributes.Add("class", "row");
+            cont.Controls.Add(cont2);
             Button b = new Button();
+            b.Style.Add("width", "290px");
             b.Text = PackId.ToString();
             b.Click += new EventHandler(openPack_Click);
             b.CssClass = "btn btn-primary";
-            PackPlaceHolder.Controls.Add(b);
+            cont2.Controls.Add(b);
         }
         if (PackPlaceHolder.Controls.Count == 0)
             carddeck = "<p>no packs available</p>";
@@ -125,13 +155,23 @@ public partial class cardDeck : System.Web.UI.Page
                 }
                 else if (num > under90 && num <= under99)
                 {
-                    Card card = cardByRating(cards, 90, 99);
+                    Card card = cardByRating(cards, 90, 98);
                     cards.Add(card);
                     cid.Add(card.id.ToString());
                 }
                 else
                 {
 
+                }
+                if (num == 99)
+                {
+                    int rnd2 = rnd.Next(100);
+                    if (rnd2 > 50)
+                    {
+                        Card crd = CardFunctions.getByCardId(984);
+                        cards.Add(crd);
+                        cid.Add(crd.id.ToString());
+                    }
                 }
                 Debug.WriteLine("num- " + num);
             }
@@ -151,12 +191,12 @@ public partial class cardDeck : System.Web.UI.Page
 
                 if (!cardInv.checkDuplicate(Session["username"].ToString(), player.id.ToString()))
                 {
-                    //cardInv.Addplayer(Session["username"].ToString(), player.id.ToString());//remooooove
+                    cardInv.Addplayer(Session["username"].ToString(), player.id.ToString());//remooooove
                 }
                 Debug.WriteLine(player.id);
             }
-            //PackFunctions.deletePack(Session["username"].ToString(), packID);//remooooove
-            //PackPlaceHolder.Controls.Remove((Button)sender);//remooooove
+            PackFunctions.deletePack(Session["username"].ToString(), packID);//remooooove
+            PackPlaceHolder.Controls.Remove((Button)sender);//remooooove
             PackPlaceHolder.Visible = false;
             saveB.Visible = true;
         }
@@ -170,5 +210,10 @@ public partial class cardDeck : System.Web.UI.Page
         Debug.WriteLine("saved");
         if (PackPlaceHolder.Controls.Count == 0)
             carddeck = "<p>no packs available</p>";
+    }
+
+    protected void testbtn_Click(object sender, EventArgs e)
+    {
+        PackFunctions.addPack(Session["username"].ToString(), "1");
     }
 }
