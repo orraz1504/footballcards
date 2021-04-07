@@ -93,5 +93,65 @@ namespace DAL
             DateTime endDateOfWeek = startDateOfWeek.AddDays(6d);
             return date2 >= startDateOfWeek && date2 <= endDateOfWeek;
         }
+        public static void addGamesToDB()
+        {
+            #region connecttoDb
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            WebRequest request = HttpWebRequest.Create(@"https://fantasy.premierleague.com/api/fixtures/");
+            WebResponse responce = request.GetResponse();
+            StreamReader reader = new StreamReader(responce.GetResponseStream());
+            string football_Jason = reader.ReadToEnd();
+
+            List<Root> call = JsonConvert.DeserializeObject<List<Root>>(football_Jason);
+            #endregion
+
+            foreach (Root game in call)
+            {
+                string com = "UPDATE game SET [date] = '"+ (game.kickoff_time ?? DateTime.Now.AddYears(-1000)).ToString("dddd, dd MMMM h:mm tt") +"', homes = '"+game.team_h_score+"', ascore ='"+game.team_a_score+"' Where gameID = "+game.id;
+                oledbhelper.Execute(com);
+            }
+        }
+        public static void addALLGamesToDB()
+        {
+            //done once to add all games to database
+            #region connecttoDb
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            WebRequest request = HttpWebRequest.Create(@"https://fantasy.premierleague.com/api/fixtures/");
+            WebResponse responce = request.GetResponse();
+            StreamReader reader = new StreamReader(responce.GetResponseStream());
+            string football_Jason = reader.ReadToEnd();
+
+            List<Root> call = JsonConvert.DeserializeObject<List<Root>>(football_Jason);
+            #endregion
+
+            foreach (Root game in call)
+            {
+                string com = "INSERT INTO game (gameID,gw,hteam,ateam,[date],homes,ascore) VALUES("+game.id+",'"+game.@event+"','"+game.team_h+"','"+game.team_a+"','" + (game.kickoff_time ?? DateTime.Now.AddYears(-1000)).ToString("dddd, dd MMMM h:mm tt") + "','"+game.team_h_score+"','"+game.team_a_score+"')";
+                oledbhelper.Execute(com);
+            }
+        }
+        public static int getCurrentGw()
+        {
+            ServicePointManager.Expect100Continue = true;
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            WebRequest request = HttpWebRequest.Create(@"https://fantasy.premierleague.com/api/bootstrap-static/");
+            WebResponse responce = request.GetResponse();
+            StreamReader reader = new StreamReader(responce.GetResponseStream());
+            string football_Jason = reader.ReadToEnd();
+
+            var call = JsonConvert.DeserializeObject<Root2>(football_Jason);
+
+
+            foreach (Event2 gw in call.events)
+            {
+                if ( DateTime.Now.CompareTo(gw.deadline_time) < 0)
+                {
+                    return gw.id;
+                }
+            }
+            return 1;
+        }
     }
 }

@@ -1,0 +1,29 @@
+﻿body{
+    margin-top: 50px;
+}
+.nav{
+    margin-top: 50px;
+}
+.nav-item{
+    width: 70%;
+    height: 90%;
+    background: #030c1dce;
+    box-shadow: 0 0 10px #030c1d, 0 0 40px #030c1dce, 0 0 80px #030c1dce;
+    border-radius: 3%;
+    margin:0 10px;
+}
+.b{
+    margin:5px;
+    overflow: hidden;
+}
+.nav-link{
+    font-size: 2.5em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: white;
+    overflow: hidden;
+}
+
+.collapse{
+    background-color: transparent;
+}

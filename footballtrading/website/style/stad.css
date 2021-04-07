@@ -1,0 +1,24 @@
+﻿body {
+    text-align:center;
+    background-image:url('../images/stadiums/Etihad.png');
+    background-position: center center;
+    backdrop-filter: blur(6px);
+    background-repeat:no-repeat;
+    background-size:cover;
+    overflow-x:hidden;
+    color:white;
+    margin:70px auto;
+}
+.wrapperr {
+    width: 70%;
+    height: 90%;
+    background: #030c1dC4;
+    box-shadow: 0 0 10px #030c1dc4, 0 0 40px #030c1dc4, 0 0 80px #030c1dc4;
+    border-radius: 1%;
+}
+.wcent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5% 0;
+}

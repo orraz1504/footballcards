@@ -1,0 +1,13 @@
+C:\Users\User\Desktop\footballcards\footballtrading\UpdateDB\bin\Release\UpdateDB.exe.config
+C:\Users\User\Desktop\footballcards\footballtrading\UpdateDB\bin\Release\UpdateDB.exe
+C:\Users\User\Desktop\footballcards\footballtrading\UpdateDB\bin\Release\UpdateDB.pdb
+C:\Users\User\Desktop\footballcards\footballtrading\UpdateDB\bin\Release\DAL.dll
+C:\Users\User\Desktop\footballcards\footballtrading\UpdateDB\bin\Release\Newtonsoft.Json.dll
+C:\Users\User\Desktop\footballcards\footballtrading\UpdateDB\bin\Release\DAL.pdb
+C:\Users\User\Desktop\footballcards\footballtrading\UpdateDB\bin\Release\DAL.dll.config
+C:\Users\User\Desktop\footballcards\footballtrading\UpdateDB\bin\Release\Newtonsoft.Json.xml
+C:\Users\User\Desktop\footballcards\footballtrading\UpdateDB\obj\Release\UpdateDB.csprojAssemblyReference.cache
+C:\Users\User\Desktop\footballcards\footballtrading\UpdateDB\obj\Release\UpdateDB.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\footballcards\footballtrading\UpdateDB\obj\Release\UpdateDB.csproj.CopyComplete
+C:\Users\User\Desktop\footballcards\footballtrading\UpdateDB\obj\Release\UpdateDB.exe
+C:\Users\User\Desktop\footballcards\footballtrading\UpdateDB\obj\Release\UpdateDB.pdb

@@ -39,11 +39,11 @@ while DidntWrite:
             players.append(x)
             if(name.text == lastname):
                 for i in players:
-                    #conn = pyodbc.connect(r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\User\Desktop\footballcards\footballtrading\website\App_Data\football.accdb;')
+                    conn = pyodbc.connect(r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=C:\Users\User\Desktop\footballcards\footballtrading\website\App_Data\football.accdb;')
                     #cursor = conn.cursor()
                     try:
                         print("added "+i.pname)
-                        #cursor.execute(r"insert INTO card ([name], [img], [country], [club], [pos], [type]) VALUES('"+ i.pname.replace("'","") +"','"+ i.pimg +"','"+i.pcountry+"','"+i.pclub+"','"+i.ppos+"','gold')")
+                        cursor.execute(r"insert INTO card ([name], [img], [country], [club], [pos], [type]) VALUES('"+ i.pname.replace("'","") +"','"+ i.pimg +"','"+i.pcountry+"','"+i.pclub+"','"+i.ppos+"','gold')")
                         #conn.commit()
                     except:
                         print(i.pname+" not in DB")

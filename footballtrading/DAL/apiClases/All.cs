@@ -45,4 +45,30 @@ namespace DAL.apiClases
         public int team_a_difficulty { get; set; }
         public int pulse_id { get; set; }
     }
+    public class Root2
+    {
+        public List<Event2> events { get; set; }
+    }
+    public class Event2
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public DateTime deadline_time { get; set; }
+        public int average_entry_score { get; set; }
+        public bool finished { get; set; }
+        public bool data_checked { get; set; }
+        public int? highest_scoring_entry { get; set; }
+        public int deadline_time_epoch { get; set; }
+        public int deadline_time_game_offset { get; set; }
+        public int? highest_score { get; set; }
+        public bool is_previous { get; set; }
+        public bool is_current { get; set; }
+        public bool is_next { get; set; }
+        public int? most_selected { get; set; }
+        public int? most_transferred_in { get; set; }
+        public int? top_element { get; set; }
+        public int transfers_made { get; set; }
+        public int? most_captained { get; set; }
+        public int? most_vice_captained { get; set; }
+    }
 }

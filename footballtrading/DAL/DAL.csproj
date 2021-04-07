@@ -61,9 +61,12 @@
     <Compile Include="cardInv.cs" />
     <Compile Include="clubColour.cs" />
     <Compile Include="FPLFunctions.cs" />
+    <Compile Include="GameFunctions.cs" />
     <Compile Include="GlobalFunctions.cs" />
     <Compile Include="oldbhelper .cs" />
     <Compile Include="PackFunctions.cs" />
+    <Compile Include="prediction.cs" />
+    <Compile Include="predictor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="userFunction.cs" />

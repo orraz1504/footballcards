@@ -56,7 +56,7 @@ public partial class cardDeck : System.Web.UI.Page
         {
             HtmlGenericControl all = new HtmlGenericControl("DIV");
             all.Attributes.Add("class", "bard");
-            all.Style.Add("background-color", clbclr[Club[0]].scolour);
+            //all.Style.Add("background-color", clbclr[Club[0]].scolour); adds ng colour to collection items
             bfix.Controls.Add(all);
 
             int howmany = count(Club[0]);

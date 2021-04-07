@@ -106,99 +106,108 @@ public partial class cardDeck : System.Web.UI.Page
             packID = -1;
             Debug.WriteLine("Failed to find PACKID");
         }
-        if (packID != -1)
+        try
         {
-            #region chances
-            int total = 0;
-            string[] odds = PackFunctions.getByPackId(packID);
-            int under80 = total + Convert.ToInt32(odds[1]);
-            total += Convert.ToInt32(odds[1]);
-            int under85 = total + Convert.ToInt32(odds[2]);
-            total += Convert.ToInt32(odds[2]);
-            int under90 = total + Convert.ToInt32(odds[3]);
-            total += Convert.ToInt32(odds[3]);
-            int under99 = total + Convert.ToInt32(odds[5]);
-            total += Convert.ToInt32(odds[4]);
-            int special = total + Convert.ToInt32(odds[4]);
-            total += Convert.ToInt32(odds[5]);
-
-            Debug.WriteLine(under80);
-            Debug.WriteLine(under85);
-            Debug.WriteLine(under90);
-            Debug.WriteLine(under99);
-            Debug.WriteLine(special);
-            #endregion
-
-            Random rnd = new Random();
-            cards = new List<Card>();
-            List<string> cid = new List<string>();
-            for (int i = 0; i < 5; i++)
+            if (packID != -1)
             {
-                int num = rnd.Next(100);
-                if (num <= under80)
-                {
-                    Card card = cardByRating(cards, 0, 80);
-                    cards.Add(card);
-                    cid.Add(card.id.ToString());
-                }
-                else if (num > under80 && num <= under85)
-                {
-                    Card card = cardByRating(cards, 80, 85);
-                    cards.Add(card);
-                    cid.Add(card.id.ToString());
-                }
-                else if (num > under85 && num <= under90)
-                {
-                    Card card = cardByRating(cards, 85, 90);
-                    cards.Add(card);
-                    cid.Add(card.id.ToString());
-                }
-                else if (num > under90 && num <= under99)
-                {
-                    Card card = cardByRating(cards, 90, 98);
-                    cards.Add(card);
-                    cid.Add(card.id.ToString());
-                }
-                else
-                {
+                #region chances
+                int total = 0;
+                string[] odds = PackFunctions.getByPackId(packID);
+                int under80 = total + Convert.ToInt32(odds[1]);
+                total += Convert.ToInt32(odds[1]);
+                int under85 = total + Convert.ToInt32(odds[2]);
+                total += Convert.ToInt32(odds[2]);
+                int under90 = total + Convert.ToInt32(odds[3]);
+                total += Convert.ToInt32(odds[3]);
+                int under99 = total + Convert.ToInt32(odds[5]);
+                total += Convert.ToInt32(odds[4]);
+                int special = total + Convert.ToInt32(odds[4]);
+                total += Convert.ToInt32(odds[5]);
 
-                }
-                if (num == 99)
+                Debug.WriteLine(under80);
+                Debug.WriteLine(under85);
+                Debug.WriteLine(under90);
+                Debug.WriteLine(under99);
+                Debug.WriteLine(special);
+                #endregion
+
+                Random rnd = new Random();
+                cards = new List<Card>();
+                List<string> cid = new List<string>();
+                for (int i = 0; i < 5; i++)
                 {
-                    int rnd2 = rnd.Next(100);
-                    if (rnd2 > 50)
+                    int num = rnd.Next(100);
+                    if (num <= under80)
                     {
-                        Card crd = CardFunctions.getByCardId(984);
-                        cards.Add(crd);
-                        cid.Add(crd.id.ToString());
+                        Card card = cardByRating(cards, 0, 80);
+                        cards.Add(card);
+                        cid.Add(card.id.ToString());
                     }
-                }
-                Debug.WriteLine("num- " + num);
-            }
-            Debug.WriteLine("started with API");
-            Dictionary<string, Element> dic = APICall.getListOfStats(cid);
-            Debug.WriteLine("Done with API");
-            foreach (Card player in cards.OrderByDescending(x => x.rating).ToList())
-            {
-                try
-                {
-                    carddeck += gf.createCard(player, clbclr[player.club], dic[player.id.ToString()]);
-                }
-                catch
-                {
-                    carddeck += gf.createCard(player, clbclr[player.club], new Element());
-                }
+                    else if (num > under80 && num <= under85)
+                    {
+                        Card card = cardByRating(cards, 80, 85);
+                        cards.Add(card);
+                        cid.Add(card.id.ToString());
+                    }
+                    else if (num > under85 && num <= under90)
+                    {
+                        Card card = cardByRating(cards, 85, 90);
+                        cards.Add(card);
+                        cid.Add(card.id.ToString());
+                    }
+                    else if (num > under90 && num <= under99)
+                    {
+                        Card card = cardByRating(cards, 90, 98);
+                        cards.Add(card);
+                        cid.Add(card.id.ToString());
+                    }
+                    else
+                    {
 
-                if (!cardInv.checkDuplicate(Session["username"].ToString(), player.id.ToString()))
-                {
-                    cardInv.Addplayer(Session["username"].ToString(), player.id.ToString());//remooooove
+                    }
+                    if (num == 99)
+                    {
+                        int rnd2 = rnd.Next(100);
+                        if (rnd2 > 50)
+                        {
+                            Card crd = CardFunctions.getByCardId(984);
+                            cards.Add(crd);
+                            cid.Add(crd.id.ToString());
+                        }
+                    }
+                    Debug.WriteLine("num- " + num);
                 }
-                Debug.WriteLine(player.id);
+                Debug.WriteLine("started with API");
+                Dictionary<string, Element> dic = APICall.getListOfStats(cid);
+                Debug.WriteLine("Done with API");
+                foreach (Card player in cards.OrderByDescending(x => x.rating).ToList())
+                {
+                    try
+                    {
+                        carddeck += gf.createCard(player, clbclr[player.club], dic[player.id.ToString()]);
+                    }
+                    catch
+                    {
+                        carddeck += gf.createCard(player, clbclr[player.club], new Element());
+                    }
+
+                    if (!cardInv.checkDuplicate(Session["username"].ToString(), player.id.ToString()))
+                    {
+                        cardInv.Addplayer(Session["username"].ToString(), player.id.ToString());//remooooove
+                    }
+                    Debug.WriteLine(player.id);
+                }
+                PackFunctions.deletePack(Session["username"].ToString(), packID);//remooooove
+                PackPlaceHolder.Controls.Remove((Button)sender);//remooooove
+                PackPlaceHolder.Visible = false;
+                saveB.Visible = true;
             }
-            PackFunctions.deletePack(Session["username"].ToString(), packID);//remooooove
-            PackPlaceHolder.Controls.Remove((Button)sender);//remooooove
-            PackPlaceHolder.Visible = false;
-            saveB.Visible = true;
+
+        
+        }
+        catch
+        {
+            
         }
     }
     //function that runs when you want to save pack, saves to database. 

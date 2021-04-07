@@ -1,11 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Betting.aspx.cs" Inherits="Betting" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-     <link rel="stylesheet" href="testWhtml/pred.css">
+    <link rel="stylesheet" href="style/stad.css">
     <style>
-        body{
-            text-align:center;
-        }
         img{
             height:50px;
             width:50px;
@@ -14,7 +11,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <form Runat="server" >
-        
+    <div class="wcent">
+    <div class="wrapperr">
     <div class="games">
         <%=error %>
             <asp:PlaceHolder ID="mfix" runat="server"><asp:Button ID="myBetsbtn" runat="server" Text="My Bets" class="btn btn-primary" OnClick="myBets_Click" /></asp:PlaceHolder>
@@ -47,6 +45,8 @@
                 <asp:Button ID="subbtn" runat="server" Text="Submit" OnClick="subbtn_Click" />
             </div>
         </asp:PlaceHolder>
+    </div>
+    </div>
     </div>
   </form>
 </asp:Content>
