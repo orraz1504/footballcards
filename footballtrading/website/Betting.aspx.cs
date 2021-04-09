@@ -39,7 +39,7 @@ public partial class Betting : System.Web.UI.Page
     {
         int x = 1;
         fixs = APICall.GetCall();
-        List<Root> lr = APICall.sortbyNextGameWeek(fixs, APICall.getCurrentGameweek(1));
+        List<Root> lr = APICall.sortbyNextGameWeek(fixs, APICall.getCurrentGameweek(0));
         clubs = FPLFunctions.getdicOfClubs();
         foreach (Root fixture in lr)
         {
@@ -230,15 +230,23 @@ public partial class Betting : System.Web.UI.Page
             else
                 sOrT.InnerHtml += "<p style='color: red;'>Fulltime score: [" + rlscore + "] </p>";
 
+            Button b = new Button();
+            b.Attributes.Add("winside", "0");
 
             bool iswteam = false;
             string winningTeam = "";
             if (game.team_h_score > game.team_a_score)
                 winningTeam = clubs[game.team_h];
             else if (game.team_a_score > game.team_h_score)
+            {
                 winningTeam = clubs[game.team_a];
+                b.Attributes["winside"]= "2";
+            }
             else
+            {
                 winningTeam = "draw";
+                b.Attributes["winside"] = "1";
+            }
             if (winningTeam == lb.winner)
             {
                 sOrT.InnerHtml += "<p style='color: green;'>Winning team: [" + lb.winner + "] </p>";
@@ -269,9 +277,9 @@ public partial class Betting : System.Web.UI.Page
                 }
             }
 
-            Button b = new Button();
             b.Text = "Claim Rewards";
             b.Attributes.Add("myid", game.id.ToString());
+            b.Attributes.Add("winner", "h");
             b.Attributes.Add("gold", "0");
             b.Attributes.Add("diamond", "0");
             b.Attributes.Add("silver", "0");
@@ -280,14 +288,14 @@ public partial class Betting : System.Web.UI.Page
             b.Click += new EventHandler(Claim_Click);
             if (lb.didClaim)
                 b.Enabled = false;
-            if (isrlscore)
-                b.Attributes["gold"] = "1";
-            if (isscorer)
-                b.Attributes["diamond"] = "1";
+            //if (isrlscore)
+            //    b.Attributes["silver"] = "1";
+            //if (isscorer)
+            //    b.Attributes["gold"] = "1";
             if (iswteam)
-                b.Attributes["silver"] = "1";
-
-
+                b.Attributes["winner"] = "t";
+            else
+                b.Attributes["winner"] = "f";
         }
         else
         {
@@ -313,12 +321,27 @@ public partial class Betting : System.Web.UI.Page
         Debug.WriteLine("in");
         Button b = (Button)sender;
         if (b.Attributes["gold"] == "1")
-            PackFunctions.addPack(Session["username"].ToString(), "1");
+            PackFunctions.addPack(Session["username"].ToString(), 1);
         if (b.Attributes["diamond"] == "1")
-            PackFunctions.addPack(Session["username"].ToString(), "2");
+            PackFunctions.addPack(Session["username"].ToString(), 2);
         if (b.Attributes["silver"] == "1")
-            PackFunctions.addPack(Session["username"].ToString(), "3");
-        BettingFunctions.claimed(Session["username"].ToString(), ((Button)sender).Attributes["myid"]);
+            PackFunctions.addPack(Session["username"].ToString(), 3);
+        int mID =Convert.ToInt32(((Button)sender).Attributes["myid"]);
+        if (b.Attributes["winner"] == "t")
+        {
+            double intialscore = (GameFunctions.getPrecentbyMatchID(mID,Convert.ToInt32(b.Attributes["winside"])) * 4) / 100f;
+            Debug.WriteLine(GameFunctions.getPrecentbyMatchID(mID, Convert.ToInt32(b.Attributes["winside"])));
+            int rounded = (int)Math.Round(intialscore);
+            PackFunctions.addPack(Session["username"].ToString(), rounded);
+        }
+        else
+        {
+            double intialscore = ((100 - GameFunctions.getPrecentbyMatchID(mID, Convert.ToInt32(b.Attributes["winside"]))) * 4) / 100f;
+            int rounded = (int)Math.Round(intialscore);
+            PackFunctions.addPack(Session["username"].ToString(),rounded);
+        }
+
+        BettingFunctions.claimed(Session["username"].ToString(), mID.ToString());
         ((Button)sender).Enabled = false;
         //Response.Redirect(Request.RawUrl,false);
     }

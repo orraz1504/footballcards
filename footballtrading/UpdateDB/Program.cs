@@ -12,17 +12,21 @@ namespace UpdateDB
         static void Main(string[] args)
         {
             Dictionary<int, string> dic = FPLFunctions.getdicOfClubs();
-            foreach (prediction pred in GameFunctions.byGameweek(APICall.getCurrentGw()))
+            for (int i = APICall.getCurrentGameweek(0); i < 39; i++)
             {
-                Console.WriteLine("home team: "+ dic[pred.hteam]);
-                Console.WriteLine("away team: " + dic[pred.ateam]);
-                predict(pred.hteam, pred.ateam);
-                Console.WriteLine("\n");
+                foreach (prediction pred in GameFunctions.byGameweek(i))
+                {
+                    Console.WriteLine("home team: " + dic[pred.hteam]);
+                    Console.WriteLine("away team: " + dic[pred.ateam]);
+                    predict(pred.hteam, pred.ateam, pred.gameID);
+                    Console.WriteLine("\n");
+                }
+                Console.WriteLine("done with gw"+i);
             }
-            Console.WriteLine("done");
-            Console.ReadLine();
+            Console.WriteLine("done with all");
+            Console.Read();
         }
-        public static void predict(int htea, int ateam)
+        public static void predict(int htea, int ateam, int matchID)
         {
             float avggoalsscoredH = FPLFunctions.getallH() / (float)FPLFunctions.getNumHPlayByTeamId(1) / 20;
             //Console.WriteLine("avrage num of goals scored at home " + avggoalsscoredH);
@@ -72,9 +76,13 @@ namespace UpdateDB
                 }
                 //Console.WriteLine("\n");
             }
-            Console.WriteLine("draw: "+Math.Round(addupoutcomes(outcomes,"d")*100)+"%");
-            Console.WriteLine("Home Win: "+Math.Round(addupoutcomes(outcomes, "H") * 100) + "%");
-            Console.WriteLine("Away Win: " + Math.Round(addupoutcomes(outcomes, "a") * 100) + "%");
+            double draw = Math.Round(addupoutcomes(outcomes, "d") * 100);
+            double home = Math.Round(addupoutcomes(outcomes, "H") * 100);
+            double away = Math.Round(addupoutcomes(outcomes, "a") * 100);
+            Console.WriteLine("draw: "+draw+"%");
+            Console.WriteLine("Home Win: "+home + "%");
+            Console.WriteLine("Away Win: " + away + "%");
+            GameFunctions.addPrecent(home, draw, away, matchID);
         }
         public static float addupoutcomes(double[,] outcomes, string who)
         {

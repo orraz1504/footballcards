@@ -43,11 +43,14 @@ public partial class cardDeck : System.Web.UI.Page
             string adress = "";
             switch (PackId)
             {
-                case 1:
+                case 2:
                     adress = "images/packs/gold.png";
                     break;
-                case 2:
+                case 1:
                     adress = "images/packs/diamond.png";
+                    break;
+                case 4:
+                    adress = "images/packs/silver.png";
                     break;
                 default:
                     adress = "images/packs/silver.png";
@@ -191,9 +194,9 @@ public partial class cardDeck : System.Web.UI.Page
                         carddeck += gf.createCard(player, clbclr[player.club], new Element());
                     }
 
-                    if (!cardInv.checkDuplicate(Session["username"].ToString(), player.id.ToString()))
+                    if (!cardInv.checkDuplicate(Session["username"].ToString(), player.id))
                     {
-                        cardInv.Addplayer(Session["username"].ToString(), player.id.ToString());//remooooove
+                        cardInv.Addplayer(Session["username"].ToString(), player.id);//remooooove
                     }
                     Debug.WriteLine(player.id);
                 }
@@ -223,6 +226,6 @@ public partial class cardDeck : System.Web.UI.Page
 
     protected void testbtn_Click(object sender, EventArgs e)
     {
-        PackFunctions.addPack(Session["username"].ToString(), "1");
+        PackFunctions.addPack(Session["username"].ToString(), 1);
     }
 }
