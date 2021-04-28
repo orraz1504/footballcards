@@ -18,6 +18,7 @@ public partial class Register : System.Web.UI.Page
             if (!userFunction.isUsername(username))
             {
                 userFunction.AddUser(username, password);
+                cardfornew(username);
                 Response.Redirect("~/Login.aspx");
             }
             else
@@ -25,5 +26,17 @@ public partial class Register : System.Web.UI.Page
                 error = "Username already taken";
             }
         }
+    }
+    // the function creats card for new user
+    private void cardfornew(string username)
+    {
+        Card player;
+        Random rnd = new Random();
+        int num = rnd.Next(1,100);
+        if (num <= 90)
+            player = CardFunctions.getByRating(0, 80);
+        else
+            player = CardFunctions.getByRating(80, 85);
+        cardInv.Addplayer(username, player.id);
     }
 }

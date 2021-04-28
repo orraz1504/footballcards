@@ -33,12 +33,17 @@ public partial class index : System.Web.UI.Page
         allCards = CardFunctions.getALLByCardId("(" + ids + ")");
         allCards = allCards.OrderByDescending(o => Convert.ToInt32(o.rating)).ToList();
 
-
+        Dictionary<string, Element> els;
         List<string> ls = ids.Split(',').ToList();
+        els = APICall.getListOfStats(ls);
+        if (els.Count == 0)
+        {
+            els.Add(ls[0], new Element());
+        }
 
-        Dictionary<string, Element> els = APICall.getListOfStats(ls);
+            Dictionary<string, clubColour> clbclr = CardFunctions.getcolours();
 
-        Dictionary<string, clubColour> clbclr = CardFunctions.getcolours();
+        Element d = els[allCards[0].id.ToString()];
 
         featured = GlobalFunctions.createCard(allCards[0], clbclr[allCards[0].club], els[allCards[0].id.ToString()]);
     }
