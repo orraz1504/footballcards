@@ -13,8 +13,31 @@ namespace DAL
     {
         public static void AddUser(string username, string password)
         {
-           string com = "insert into [users] ([username],[password]) VALUES ('"+username+"' ,'"+ AesCryp.encrypt(password)+"')";
+           string com = "insert into [users] ([username],[password],[isAdmin]) VALUES ('" + username+"' ,'"+ AesCryp.encrypt(password)+"','n')";
            oledbhelper.Execute(com);
+        }
+        public static bool isAdmin(string username)
+        {
+            string com = "SELECT [isAdmin] FROM [users] where [username] = '" + username + "'";
+            DataTable dt = oledbhelper.GetTable(com);
+            if (dt.Rows[0].ItemArray[0].ToString() == "y")
+                return true;
+            return false;
+        }
+        public static void toggleAdmin(string username)
+        {
+            string com = "SELECT [isAdmin] FROM [users] where [username] = '" + username + "'";
+            DataTable dt = oledbhelper.GetTable(com);
+            if (dt.Rows[0].ItemArray[0].ToString() == "y")
+            {
+                string com2 = $"update [users] set [isAdmin]='n' where [username]='{username}'";
+                oledbhelper.Execute(com2);
+            }
+            else
+            {
+                string com2 = $"update [users] set [isAdmin]='y' where [username]='{username}'";
+                oledbhelper.Execute(com2);
+            }
         }
         public static bool checkPassword(string username, string password)
         {
@@ -36,14 +59,19 @@ namespace DAL
         }
         public static void UpdatePassword(string username, string password)
         {
-            string com = "update [users] set [password]='{password}' where [username]='{username}'";
+            string com = $"update [users] set [password]='{password}' where [username]='{username}'";
             oledbhelper.Execute(com);
         }
     
         public static void Deleteuser(string username)
         {
-            string com = "DELETE FROM [users] WHERE [username] ='{username}'";
+            string com = $"DELETE FROM [users] WHERE [username] ='{username}'";
             oledbhelper.Execute(com);
+        }
+        public static string GetUsers()
+        {
+            string sql = "Select * from [users]";
+            return oledbhelper.printDataTable(sql);
         }
     }
 }

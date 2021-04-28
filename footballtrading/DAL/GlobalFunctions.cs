@@ -14,7 +14,7 @@ namespace DAL
         public static string createCard(Card player, clubColour clr, Element els)
         {
             //create card
-            string card = "<div class='card' >";
+            string card = "<div class='card'>";
             card += "<div class='card__inner'>";
 
 

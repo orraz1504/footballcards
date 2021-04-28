@@ -11,22 +11,22 @@ namespace DAL
 {
     public static class BettingFunctions
     {
-        public static void AddBet(string username, string GameID, string winner, string score, string scorer)
+        public static void AddBet(string username, int GameID, string winner, string score, string scorer)
         {
-            string com = "insert into [bets] ([username],[GameID],[winner],[score],[scorer],[didClaim]) VALUES ('" + username + "' ,'" + GameID + "' ,'" + winner + "' ,'" + score + "' ,'" + scorer + "', 0)";
+            string com = "insert into [bets] ([username],[GameID],[winner],[score],[scorer],[didClaim]) VALUES ('" + username + "' ," + GameID + " ,'" + winner + "' ,'" + score + "' ,'" + scorer + "', 0)";
             oledbhelper.Execute(com);
         }
-        public static bool didBet(string username, string GameID)
+        public static bool didBet(string username, int GameID)
         {
-            string com = "SELECT [GameID] FROM [bets] where [username] = '" + username + "' AND [GameID] = '" + GameID + "'";
+            string com = "SELECT [GameID] FROM [bets] where [username] = '" + username + "' AND [GameID] = " + GameID + "";
             DataTable dt = oledbhelper.GetTable(com);
             if (dt.Rows.Count <= 0)
                 return false;
             return true;
         }
-        public static void claimed(string username, string GameID)
+        public static void claimed(string username, int GameID)
         {
-            string com = "UPDATE [bets] Set [didClaim] = 1 WHERE [username] = '" + username+ "' AND [GameID]= '"+ GameID +"'";
+            string com = "UPDATE [bets] Set [didClaim] = 1 WHERE [username] = '" + username+ "' AND [GameID]= "+ GameID +"";
             oledbhelper.Execute(com);
         }
         public static List<Bet> getAllBets(string username)

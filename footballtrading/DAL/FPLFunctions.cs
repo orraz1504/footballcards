@@ -143,5 +143,19 @@ namespace DAL
             DataTable dt = oledbhelper.GetTable(com);
             return dt.Rows.Count;
         }
+        public static void numofplayers()
+        {
+            string com = "SELECT name FROM [Clubs]";
+            DataTable dt = oledbhelper.GetTable(com);
+            foreach (DataRow dr in dt.Rows)
+            {
+                string com2 = "SELECT CardID FROM [card] where [club]= '"+ dr.ItemArray[0].ToString()+"'";
+                DataTable dt2 = oledbhelper.GetTable(com2);
+
+
+                string com3 = "UPDATE [Clubs] Set [Oplayers] = '" + dt2.Rows.Count + "' Where [name] = '"+ dr.ItemArray[0].ToString() + "'";
+                oledbhelper.Execute(com3);
+            }
+        }
     }
 }

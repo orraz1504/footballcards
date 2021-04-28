@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="style/cards.css">
     <link rel="stylesheet" href="style/stad.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="scripts/packanimate.js"></script>
     <style>
         body{
             background-image:url('../images/stadiums/Tottenhamhotspurstadium.jpg');
@@ -17,7 +18,7 @@
                     <asp:Button ID="testbtn" runat="server" Text="Button" OnClick="testbtn_Click" />
                     <div class="row">
                         <asp:PlaceHolder runat="server" ID="PackPlaceHolder"></asp:PlaceHolder>
-                        <div class="deck">
+                        <div class="deck" style="position: relative;">
                            <%=carddeck %>
                         </div>
                     </div>

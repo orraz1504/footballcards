@@ -67,6 +67,7 @@ public partial class cardDeck : System.Web.UI.Page
             b.Text = PackId.ToString();
             b.Click += new EventHandler(openPack_Click);
             b.CssClass = "btn btn-primary";
+            b.Attributes.Add("onclick", "openpack();");
             cont2.Controls.Add(b);
         }
         if (PackPlaceHolder.Controls.Count == 0)

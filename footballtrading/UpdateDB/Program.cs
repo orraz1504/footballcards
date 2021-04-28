@@ -11,6 +11,11 @@ namespace UpdateDB
     {
         static void Main(string[] args)
         {
+            FPLFunctions.numofplayers();
+            //predictions();
+        }
+        public static void predictions()
+        {
             Dictionary<int, string> dic = FPLFunctions.getdicOfClubs();
             for (int i = APICall.getCurrentGameweek(0); i < 39; i++)
             {
@@ -21,7 +26,7 @@ namespace UpdateDB
                     predict(pred.hteam, pred.ateam, pred.gameID);
                     Console.WriteLine("\n");
                 }
-                Console.WriteLine("done with gw"+i);
+                Console.WriteLine("done with gw" + i);
             }
             Console.WriteLine("done with all");
             Console.Read();

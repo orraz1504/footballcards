@@ -81,4 +81,26 @@ public static class oledbhelper
 
         return dt;
     }
+    public static string printDataTable(string sql)
+    {    // הפעולה המקבלת מסד נתונים ושאילתה
+        // HTML הפעולה מחזירה מחרוזת השומרת את הטבלה בתור
+        DataTable dt = GetTable(sql);
+
+        string printStr = "<table border='1'>";
+        printStr += "<tr><td></td><td name='test'>name</td><td>Password</td><td>is admin</td> </tr>";
+        foreach (DataRow row in dt.Rows)
+        {
+            printStr += "<tr>";
+            printStr += "<td><input type='radio' name='key' value='" + row.ItemArray[0] + "'>";
+            foreach (object myItemArray in row.ItemArray)
+            {
+
+                printStr += "<td>" + myItemArray.ToString() + "</td>";
+            }
+            printStr += "</tr>";
+        }
+        printStr += "</table>";
+
+        return printStr;
+    }
 }

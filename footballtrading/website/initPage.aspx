@@ -14,6 +14,7 @@
     <div class="all">
     <section style="overflow: hidden;margin:0; background-image:url(images/initpage/cover.jpg); background-attachment: fixed; background-repeat:no-repeat; background-size:cover;" >
         <h1 class="ftitle">The Unoffical Premier league betting game</h1>
+        <img id="logo" src="images/initpage/logo.png" />
         <div class="cover" style="background-color:#3d195b;">
         </div>
         <div class="stcont">

@@ -122,7 +122,7 @@ public partial class Betting : System.Web.UI.Page
     protected void bet_Click(object sender, EventArgs e)
     {
 
-        if (BettingFunctions.didBet(Session["username"].ToString(), ((Button)sender).ID))
+        if (BettingFunctions.didBet(Session["username"].ToString(), Convert.ToInt32(((Button)sender).ID)))
         {
             error = "already bet on this game";
         }
@@ -160,7 +160,7 @@ public partial class Betting : System.Web.UI.Page
         {
             winner = "draw";
         }
-        BettingFunctions.AddBet(Session["username"].ToString(), gameid.Text, winner, score, playersdl.SelectedValue.ToString());
+        BettingFunctions.AddBet(Session["username"].ToString(), Convert.ToInt32(gameid.Text), winner, score, playersdl.SelectedValue.ToString());
 
         playersdl.Items.Clear();
         hteamscore.Text = 0.ToString();
@@ -341,7 +341,7 @@ public partial class Betting : System.Web.UI.Page
             PackFunctions.addPack(Session["username"].ToString(),rounded);
         }
 
-        BettingFunctions.claimed(Session["username"].ToString(), mID.ToString());
+        BettingFunctions.claimed(Session["username"].ToString(), mID);
         ((Button)sender).Enabled = false;
         //Response.Redirect(Request.RawUrl,false);
     }
