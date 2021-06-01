@@ -7,6 +7,10 @@
         body{
             background-image:url('../images/stadiums/Elland.jpg');
         }
+        .games img{
+            height:50px;
+            width:50px;
+        }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </asp:Content>
@@ -17,20 +21,15 @@
             <div class="wrapperr">
                 <div class="containor">
                      <div class="row">
-                         <div class="col-2">
+                         <div class="col-3">
                              <div class="row">
-                                <h2>news</h2>
-                                 <p>new cards available!</p>
+                                <h2><%=newsHead %></h2>
+                                 <p><%=newsCont %></p>
                              </div>
-                             <div class="row">
-                                 <h2> Latest game</h2>
-                                 <p>team1 vs team2</p>
-                                 <p>10-0</p>
+                             <div class="row games">
+                                 <h2>Latest Game</h2>
+                                 <asp:PlaceHolder ID="mfix" runat="server"></asp:PlaceHolder>
                                  <hr>
-                             </div>
-                             <div class="row">
-                                 <h2>your last bet</h2>
-                                 <p>no</p>
                              </div>
                          </div>
                          <div class="col" style="float:right;">

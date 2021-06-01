@@ -87,7 +87,7 @@ public partial class Betting : System.Web.UI.Page
         scoreInRow.Controls.Add(homeTName);
         HtmlGenericControl sOrT = new HtmlGenericControl("DIV");
         sOrT.Attributes.Add("class", "col - sm");
-        if (game.started == true)
+        if (game.started == true /*chage to false at end of season to check*/)
         {
             sOrT.InnerHtml = "<p> (" + homeS + " - " + awayS + ") </p>";
         }

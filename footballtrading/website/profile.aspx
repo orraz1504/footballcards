@@ -21,19 +21,28 @@
                 <div class="wrapperr">
                     <div class="containor">
                         <div class="row">
-                            <h1><%=username %></h1>
-
-                            <p>change your username</p>
-                            <asp:TextBox ID="pswdtxt" runat="server"></asp:TextBox>
-                            <asp:Button ID="pswdsub" runat="server" Text="Button" AutoCompleteType="Disabled" onclick="pswdsub_Click"/>
-
-                            <p> delete user warning this is permenenat</p>
-                            <asp:Button ID="delbtn" runat="server" Text="Button" OnClientClick="return Confirmation();" onclick="delbtn_Click"/>
-                        </div>
-                        <div id="admin" runat="server" visible="false" class="row">
-                            <%=allUsers %>
-                            <input type="submit" id="del" name="submitter" value="delete">
-                            <input type="submit" id="adm" name="submitter" value="admin">
+                            <div class="col">
+                                <div class="row">
+                                    <h1><%=username %>'s profile</h1>
+                                </div>
+                                <div class="row">
+                                    <p>change your username</p>
+                                    <asp:TextBox ID="pswdtxt" runat="server"></asp:TextBox>
+                                    <asp:Button ID="pswdsub" runat="server" Text="Button" AutoCompleteType="Disabled" onclick="pswdsub_Click"/>
+                                    <hr />
+                                </div>
+                                <div class="row">
+                                    <p> delete user warning this is permenenat</p>
+                                    <asp:Button ID="Button1" runat="server" Text="Button" OnClientClick="return Confirmation();" onclick="delbtn_Click"/>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div id="admin" runat="server" visible="false" class="row">
+                                    <%=allUsers %>
+                                    <input type="submit" id="del" name="submitter" value="delete">
+                                    <input type="submit" id="adm" name="submitter" value="admin">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

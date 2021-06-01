@@ -63,6 +63,7 @@
     <Compile Include="FPLFunctions.cs" />
     <Compile Include="GameFunctions.cs" />
     <Compile Include="GlobalFunctions.cs" />
+    <Compile Include="newsFunctions.cs" />
     <Compile Include="oldbhelper .cs" />
     <Compile Include="PackFunctions.cs" />
     <Compile Include="prediction.cs" />

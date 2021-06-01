@@ -11,25 +11,33 @@ namespace UpdateDB
     {
         static void Main(string[] args)
         {
-            FPLFunctions.numofplayers();
-            //predictions();
+            FPLFunctions.numofplayers(); // updates the number of players from each cat
+            Console.WriteLine("Updated numver of players");
+            Console.WriteLine("\n");
+
+            Console.WriteLine("adding games to db");
+            APICall.addGamesToDB();
+
+            Console.WriteLine(APICall.getCurrentGameweek(0));
+            predictions();
+            Console.WriteLine("done with predictions");
+            Console.WriteLine("\n");
         }
         public static void predictions()
         {
+            int gw = APICall.getCurrentGameweek(0);
+            Console.WriteLine("predicting gameweek: "+gw);
             Dictionary<int, string> dic = FPLFunctions.getdicOfClubs();
-            for (int i = APICall.getCurrentGameweek(0); i < 39; i++)
+            foreach (prediction pred in GameFunctions.byGameweek(gw))
             {
-                foreach (prediction pred in GameFunctions.byGameweek(i))
+                if (pred.awin != null || pred.awin == 0)
                 {
                     Console.WriteLine("home team: " + dic[pred.hteam]);
                     Console.WriteLine("away team: " + dic[pred.ateam]);
                     predict(pred.hteam, pred.ateam, pred.gameID);
                     Console.WriteLine("\n");
                 }
-                Console.WriteLine("done with gw" + i);
             }
-            Console.WriteLine("done with all");
-            Console.Read();
         }
         public static void predict(int htea, int ateam, int matchID)
         {
